@@ -20,13 +20,13 @@
           <small id="mobileBuyVariant"></small>
           <b id="mobileBuyPrice"></b>
         </div>
-        <button type="button" onclick="addSelectedVariant()">Adicionar ao saco</button>`;
+        <button type="button" onclick="addSelectedVariant()">Adicionar · envio grátis</button>`;
       document.body.appendChild(bar);
     }
     const variant = document.getElementById('mobileBuyVariant');
     const price = document.getElementById('mobileBuyPrice');
     if(variant) variant.textContent = `${f.name} · ${v.name}`;
-    if(price) price.textContent = money(v.price);
+    if(price) price.textContent = `${money(v.price)} · envio grátis`;
     bar.style.display = '';
   }
 
@@ -44,7 +44,7 @@
         if(detail && !detail.querySelector('.conversion-note')){
           const note = document.createElement('div');
           note.className = 'conversion-note';
-          note.innerHTML = '<span>Fotografias reais</span><span>Preço promocional visível</span><span>Carrinho guardado</span>';
+          note.innerHTML = '<span>Envio grátis</span><span>Fotografias reais</span><span>Preço promocional visível</span>';
           const subtitle = detail.querySelector('.product-subtitle');
           if(subtitle) subtitle.insertAdjacentElement('afterend', note);
         }
