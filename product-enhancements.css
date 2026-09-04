@@ -1,0 +1,25 @@
+/* CAVERO product storytelling + comparison */
+.product-content-enhancements{margin-top:92px;display:grid;gap:34px}
+.product-editorial-section,.brand-comparison-section{border:1px solid rgba(16,16,15,.08);border-radius:34px;background:rgba(255,253,249,.86);box-shadow:0 20px 58px rgba(16,16,15,.055);overflow:hidden}
+.product-editorial-heading{padding:48px 50px 18px;max-width:980px}
+.product-editorial-heading h2,.comparison-heading h2{margin:10px 0 16px;font-family:Georgia,'Times New Roman',serif;font-weight:500;letter-spacing:-.035em;line-height:.98;color:#11110f}
+.product-editorial-heading h2{font-size:clamp(40px,4.4vw,66px)}
+.product-editorial-heading>p{max-width:800px;margin:0;color:#6c675f;font-size:15px;line-height:1.75}
+.product-editorial-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(330px,.8fr);gap:34px;padding:24px 50px 50px}
+.product-editorial-copy>p{margin:0 0 26px;font-size:15px;line-height:1.85;color:#4f4a43;max-width:760px}
+.editorial-highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.editorial-highlights article{min-height:168px;padding:20px;border:1px solid rgba(16,16,15,.08);border-radius:22px;background:#f6f1e9;display:flex;gap:13px;align-items:flex-start}
+.editorial-highlights article>span{display:flex;align-items:center;justify-content:center;flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:#11110f;color:#fff;font-size:9px;font-weight:900;letter-spacing:.05em}
+.editorial-highlights b{display:block;margin:3px 0 7px;font-size:13px;color:#171614}
+.editorial-highlights p{margin:0;color:#746f66;font-size:11px;line-height:1.55}
+.model-profile-card{align-self:start;border-radius:27px;background:linear-gradient(145deg,#171612,#27231e);color:#fff;padding:28px 26px;box-shadow:0 22px 44px rgba(16,16,15,.16)}
+.model-profile-top{display:grid;gap:6px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,.12)}
+.model-profile-top small{color:#cbae78;font-size:9px;font-weight:900;letter-spacing:.16em}.model-profile-top b{font-family:Georgia,'Times New Roman',serif;font-size:25px;font-weight:500}
+.model-profile-card dl{margin:8px 0 0}.model-profile-card dl>div{display:grid;grid-template-columns:105px 1fr;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.09)}
+.model-profile-card dt{color:#999186;font-size:10px}.model-profile-card dd{margin:0;color:#f4efe6;font-size:11px;line-height:1.45;font-weight:650}.model-profile-card .profile-free{color:#92d7aa}.profile-note{margin:17px 0 0;color:#928b81;font-size:9px;line-height:1.5}
+
+.brand-comparison-section{padding:48px 50px 42px}.comparison-heading{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:40px;align-items:end;margin-bottom:28px}.comparison-heading h2{font-size:clamp(36px,3.8vw,58px);max-width:800px}.comparison-heading>p{margin:0 0 8px;color:#68635a;font-size:14px;line-height:1.7;max-width:440px}
+.comparison-table-wrap{overflow-x:auto;border:1px solid rgba(16,16,15,.09);border-radius:24px;background:#fff}.comparison-table{width:100%;border-collapse:collapse;min-width:760px}.comparison-table th,.comparison-table td{padding:18px 20px;text-align:left;border-bottom:1px solid rgba(16,16,15,.075);font-size:12px;line-height:1.45;vertical-align:middle}.comparison-table th{background:#f3eee5;color:#5e594f;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.comparison-table th:first-child{width:27%}.comparison-table td:first-child{font-weight:800;color:#292621}.comparison-table tr:last-child td{border-bottom:0}.comparison-table .cavero-col{background:#f6f0e6;color:#28231d}.comparison-table td.cavero-col{font-weight:650}.comparison-table td.cavero-col b{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;margin-right:7px;border-radius:50%;background:#245f3b;color:#fff;font-size:10px}.comparison-table th.cavero-col{color:#7a5e35;background:#eaddc8}.comparison-disclaimer{margin:14px 3px 0;color:#938d83;font-size:9px;line-height:1.5}
+
+@media(max-width:1050px){.product-editorial-layout{grid-template-columns:1fr}.model-profile-card{max-width:none}.comparison-heading{grid-template-columns:1fr}.editorial-highlights{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:760px){.product-content-enhancements{margin-top:62px;gap:22px}.product-editorial-section,.brand-comparison-section{border-radius:27px}.product-editorial-heading{padding:32px 20px 12px}.product-editorial-heading h2{font-size:40px}.product-editorial-heading>p{font-size:14px}.product-editorial-layout{padding:18px 20px 24px;gap:22px}.product-editorial-copy>p{font-size:14px;line-height:1.75}.editorial-highlights{grid-template-columns:1fr}.editorial-highlights article{min-height:0}.model-profile-card{border-radius:23px;padding:23px 20px}.model-profile-card dl>div{grid-template-columns:92px 1fr}.brand-comparison-section{padding:32px 20px 26px}.comparison-heading{gap:12px;margin-bottom:20px}.comparison-heading h2{font-size:38px}.comparison-heading>p{font-size:13px}.comparison-table th,.comparison-table td{padding:15px 16px}.comparison-disclaimer{font-size:8px}}
