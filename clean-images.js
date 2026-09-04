@@ -12,7 +12,19 @@ const CAVERO_CLEAN_IMAGES = {
 families.forEach(f => {
   const clean = CAVERO_CLEAN_IMAGES[f.key];
   if (!clean) return;
+
   f.cleanImage = clean;
+
+  // Royale source imagery contained hanging supplier labels in most colour photos.
+  // Until every colour has a clean dedicated studio image, never expose those source photos.
+  if (f.key === 'royale') {
+    f.gallery = [clean];
+    f.variants.forEach(variant => {
+      variant.image = clean;
+    });
+    return;
+  }
+
   f.gallery = [clean, ...(f.gallery || []).filter(src => src !== clean)];
   const defaultVariant = f.variants?.[f.defaultVariant || 0];
   if (defaultVariant) defaultVariant.image = clean;
