@@ -115,6 +115,17 @@ function promoPanel(v){
   </div>`;
 }
 function freeShippingBanner(){return `<div class="free-shipping-banner"><div class="free-shipping-icon">✓</div><div><strong>ENVIO GRÁTIS</strong><span>Portes a <b>0,00 €</b> na tua encomenda.</span></div></div>`}
+function paymentMethodsMarkup(){return `<div class="product-payment-methods" aria-label="Métodos de pagamento">
+  <div class="payment-security-title"><span class="secure-lock" aria-hidden="true"></span><span>Pagamento seguro</span></div>
+  <div class="payment-logo-row">
+    <span class="payment-logo payment-mastercard" title="Mastercard"><span class="mc-symbol"><i></i><i></i></span><b>mastercard</b></span>
+    <span class="payment-logo payment-visa" title="Visa"><b>VISA</b></span>
+    <span class="payment-logo payment-mbway" title="MB WAY"><b>MB</b><strong>WAY</strong></span>
+    <span class="payment-logo payment-apple" title="Apple Pay"><b>Apple</b><strong>Pay</strong></span>
+    <span class="payment-logo payment-revolut" title="Revolut Pay"><b>Revolut</b><strong>Pay</strong></span>
+    <span class="payment-logo payment-klarna" title="Klarna"><b>Klarna.</b></span>
+  </div>
+</div>`}
 function productBenefits(){return `<div class="product-benefits"><div><b>Pagamento simples</b><span>Cartão e MB WAY no checkout.</span></div><div><b>Escolha guardada</b><span>O teu carrinho permanece neste dispositivo.</span></div><div class="free-benefit"><b>Envio grátis</b><span>Sem custos de envio na encomenda.</span></div></div>`}
 function relatedMarkup(currentKey){
   const items=families.filter(f=>f.key!==currentKey).slice(0,3);
@@ -139,6 +150,7 @@ window.openProduct=key=>{
         <div class="variant-list" id="variantList">${variantButtons(f)}</div>
         <div class="buyrow"><input class="qty" id="qty" type="number" min="1" value="1"><button class="btn dark add-main" onclick="addSelectedVariant()">Adicionar ao saco · <span id="addPrice">${money(v.price)}</span></button></div>
         <div class="buy-shipping-note">✓ Envio grátis incluído — não pagas portes.</div>
+        ${paymentMethodsMarkup()}
         ${productBenefits()}
         <div class="product-accordions"><details open><summary>Sobre este modelo</summary><p>${f.desc}</p></details><details><summary>Imagens e variantes</summary><p>Cada acabamento tem uma fotografia própria. Seleciona uma variante acima para veres a imagem correspondente em grande.</p></details><details><summary>Pagamento e entrega</summary><p><strong>Envio grátis.</strong> Os portes são 0,00 € na encomenda. O checkout está preparado para cartão e MB WAY.</p></details></div>
       </div>
