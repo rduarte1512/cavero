@@ -114,7 +114,8 @@ function promoPanel(v){
     ${pct?`<div class="promo-saving">Poupa <strong>${money(savings(v))}</strong> nesta variante.</div>`:''}
   </div>`;
 }
-function productBenefits(){return `<div class="product-benefits"><div><b>Pagamento simples</b><span>Cartão e MB WAY no checkout.</span></div><div><b>Escolha guardada</b><span>O teu carrinho permanece neste dispositivo.</span></div><div><b>Envio</b><span>Calculado antes da confirmação final.</span></div></div>`}
+function freeShippingBanner(){return `<div class="free-shipping-banner"><div class="free-shipping-icon">✓</div><div><strong>ENVIO GRÁTIS</strong><span>Portes a <b>0,00 €</b> na tua encomenda.</span></div></div>`}
+function productBenefits(){return `<div class="product-benefits"><div><b>Pagamento simples</b><span>Cartão e MB WAY no checkout.</span></div><div><b>Escolha guardada</b><span>O teu carrinho permanece neste dispositivo.</span></div><div class="free-benefit"><b>Envio grátis</b><span>Sem custos de envio na encomenda.</span></div></div>`}
 function relatedMarkup(currentKey){
   const items=families.filter(f=>f.key!==currentKey).slice(0,3);
   return `<section class="related-section"><div class="eyebrow">OUTROS CAVERO</div><h2>Também podes gostar</h2><div class="related-grid">${items.map(f=>{const v=cleanVariant(f,f.defaultVariant);return `<article onclick="openProduct('${f.key}')"><img src="${v.image}" alt="${f.name}" loading="lazy"><div><b>${f.name}</b><span>${money(v.price)}</span></div></article>`}).join('')}</div></section>`;
@@ -131,13 +132,15 @@ window.openProduct=key=>{
       <div class="detail">
         <div class="eyebrow">CAVERO WATCHES · PORTUGAL</div><h1>${f.name}</h1><p class="product-subtitle">${f.subtitle}</p>
         <div id="promoPanel">${promoPanel(v)}</div>
+        ${freeShippingBanner()}
         <p class="desc">${f.desc}</p>
         <div class="variant-heading"><b>Escolhe o acabamento</b><span id="selectedVariantRef">Ref. ${variantId(f.key,activeVariantIndex).toUpperCase()}</span></div>
         <div class="selected-variant-line">Selecionado: <strong id="selectedVariantName">${v.name}</strong></div>
         <div class="variant-list" id="variantList">${variantButtons(f)}</div>
         <div class="buyrow"><input class="qty" id="qty" type="number" min="1" value="1"><button class="btn dark add-main" onclick="addSelectedVariant()">Adicionar ao saco · <span id="addPrice">${money(v.price)}</span></button></div>
+        <div class="buy-shipping-note">✓ Envio grátis incluído — não pagas portes.</div>
         ${productBenefits()}
-        <div class="product-accordions"><details open><summary>Sobre este modelo</summary><p>${f.desc}</p></details><details><summary>Imagens e variantes</summary><p>Cada acabamento tem uma fotografia própria. Seleciona uma variante acima para veres a imagem correspondente em grande.</p></details><details><summary>Pagamento e entrega</summary><p>O custo de envio é apresentado antes da confirmação final. O checkout está preparado para cartão e MB WAY.</p></details></div>
+        <div class="product-accordions"><details open><summary>Sobre este modelo</summary><p>${f.desc}</p></details><details><summary>Imagens e variantes</summary><p>Cada acabamento tem uma fotografia própria. Seleciona uma variante acima para veres a imagem correspondente em grande.</p></details><details><summary>Pagamento e entrega</summary><p><strong>Envio grátis.</strong> Os portes são 0,00 € na encomenda. O checkout está preparado para cartão e MB WAY.</p></details></div>
       </div>
     </div>
     ${relatedMarkup(f.key)}
