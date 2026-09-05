@@ -29,5 +29,19 @@
     };
   }
 
+  /* The lightbox is created dynamically by app-a.js. Mark it whenever a
+     Royale photo is enlarged so the same supplier-tag cleanup is applied. */
+  const baseOpenLightbox = window.openLightbox;
+  if (typeof baseOpenLightbox === 'function') {
+    window.openLightbox = function(src){
+      baseOpenLightbox(src);
+      requestAnimationFrame(() => {
+        const lb = document.getElementById('imageLightbox');
+        if (!lb) return;
+        lb.classList.toggle('royale-image-lightbox', document.body.classList.contains('royale-product'));
+      });
+    };
+  }
+
   requestAnimationFrame(refreshHomeCovers);
 })();
