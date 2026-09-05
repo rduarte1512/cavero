@@ -1,0 +1,100 @@
+/* CAVERO — verified reviews / social-proof section */
+.customer-reviews-section{
+  margin-top:34px;
+  border:1px solid rgba(16,16,15,.08);
+  border-radius:34px;
+  background:rgba(255,253,249,.9);
+  box-shadow:0 20px 58px rgba(16,16,15,.055);
+  overflow:hidden;
+}
+.reviews-head{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
+  gap:38px;
+  align-items:end;
+  padding:46px 50px 28px;
+}
+.reviews-head h2{
+  margin:10px 0 14px;
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:clamp(38px,4vw,60px);
+  line-height:.98;
+  letter-spacing:-.035em;
+  font-weight:500;
+  color:#11110f;
+}
+.reviews-head p{margin:0;color:#6c675f;font-size:14px;line-height:1.7;max-width:720px}
+.reviews-trust-note{
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:18px 19px;
+  border:1px solid rgba(36,95,59,.16);
+  border-radius:22px;
+  background:#f0f7f2;
+  color:#2b5237;
+}
+.reviews-trust-note .shield{
+  flex:0 0 36px;width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:#245f3b;color:#fff;font-weight:900;font-size:14px;
+}
+.reviews-trust-note b{display:block;font-size:12px;margin-bottom:3px}.reviews-trust-note span{display:block;font-size:10px;line-height:1.45;color:#5d7765}
+
+.reviews-empty{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:22px;
+  padding:0 50px 48px;
+}
+.reviews-empty-card{
+  padding:30px;
+  border:1px solid rgba(16,16,15,.08);
+  border-radius:26px;
+  background:linear-gradient(145deg,#f6f1e8,#fffdf9);
+}
+.reviews-empty-card .empty-stars{font-size:22px;letter-spacing:.12em;color:#c9c1b5;margin-bottom:18px}
+.reviews-empty-card h3{margin:0 0 10px;font-family:Georgia,'Times New Roman',serif;font-weight:500;font-size:30px;color:#171614}
+.reviews-empty-card p{margin:0;color:#716b62;font-size:13px;line-height:1.65;max-width:680px}
+.reviews-empty-points{display:grid;gap:10px}
+.reviews-empty-points article{
+  min-height:94px;
+  display:grid;
+  grid-template-columns:36px 1fr;
+  gap:12px;
+  align-items:start;
+  padding:17px 18px;
+  border:1px solid rgba(16,16,15,.08);
+  border-radius:20px;
+  background:#fff;
+}
+.reviews-empty-points article>span{
+  width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:#11110f;color:#fff;font-size:10px;font-weight:900;
+}
+.reviews-empty-points b{display:block;margin:2px 0 5px;font-size:12px;color:#1c1a17}.reviews-empty-points p{margin:0;font-size:10px;line-height:1.5;color:#817a70}
+
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0 50px 48px}
+.review-card{border:1px solid rgba(16,16,15,.08);border-radius:24px;background:#fff;padding:22px;display:flex;flex-direction:column;min-height:230px}
+.review-card .review-stars{letter-spacing:.08em;color:#9b7740;font-size:14px}.review-card .review-title{margin:12px 0 7px;font-size:15px;color:#191714}.review-card .review-text{margin:0;color:#676158;font-size:12px;line-height:1.65;flex:1}
+.review-card .review-meta{display:flex;justify-content:space-between;gap:12px;align-items:end;padding-top:18px;margin-top:18px;border-top:1px solid rgba(16,16,15,.07)}
+.review-meta b{font-size:11px}.review-meta small{display:block;margin-top:3px;color:#8a8379;font-size:9px}.verified-badge{display:inline-flex;align-items:center;gap:5px;padding:6px 8px;border-radius:999px;background:#eff6f0;color:#315f3e;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.review-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;margin:0 0 16px;background:#f2ede5}
+.review-photo-label{font-size:8px;color:#8b8379;margin:-7px 0 12px;text-transform:uppercase;letter-spacing:.07em}
+
+.reviews-policy{
+  display:flex;flex-wrap:wrap;gap:7px;
+  padding:0 50px 48px;
+}
+.reviews-policy span{padding:8px 11px;border-radius:999px;background:#f3eee6;border:1px solid rgba(16,16,15,.07);font-size:9px;font-weight:750;color:#696258}
+
+@media(max-width:900px){
+  .reviews-head,.reviews-empty{grid-template-columns:1fr}.review-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .customer-reviews-section{border-radius:27px;margin-top:22px}
+  .reviews-head{padding:32px 20px 20px;gap:18px}.reviews-head h2{font-size:39px}.reviews-head p{font-size:13px}
+  .reviews-empty{padding:0 20px 26px}.reviews-empty-card{padding:23px 20px;border-radius:22px}.reviews-empty-card h3{font-size:27px}
+  .review-grid{grid-template-columns:1fr;padding:0 20px 26px}.reviews-policy{padding:0 20px 28px}
+}
