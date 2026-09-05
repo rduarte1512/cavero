@@ -1,5 +1,5 @@
 // Clean hero/cover imagery for CAVERO models.
-// These images were prepared without the hanging supplier/Chinese labels visible in the source photos.
+// Keep clean cover images for cards/hero, but NEVER collapse a family into one photo.
 const CAVERO_CLEAN_IMAGES = {
   chronos: 'https://static.wixstatic.com/media/eb5ec1_ec87cb0fa40841dc9fa4613af69c4bac~mv2.jpg',
   royale: 'https://static.wixstatic.com/media/eb5ec1_86b27e53c13e4ca8b830110f63498eb5~mv2.jpg',
@@ -12,20 +12,9 @@ const CAVERO_CLEAN_IMAGES = {
 families.forEach(f => {
   const clean = CAVERO_CLEAN_IMAGES[f.key];
   if (!clean) return;
-
   f.cleanImage = clean;
 
-  // Royale source imagery contained hanging supplier labels in most colour photos.
-  // Until every colour has a clean dedicated studio image, never expose those source photos.
-  if (f.key === 'royale') {
-    f.gallery = [clean];
-    f.variants.forEach(variant => {
-      variant.image = clean;
-    });
-    return;
-  }
-
+  // Add one clean editorial image to the gallery, but preserve every
+  // original variant image so each colour/acabamento remains visually distinct.
   f.gallery = [clean, ...(f.gallery || []).filter(src => src !== clean)];
-  const defaultVariant = f.variants?.[f.defaultVariant || 0];
-  if (defaultVariant) defaultVariant.image = clean;
 });
