@@ -1,8 +1,6 @@
-/* CAVERO Royale — supplier-tag cleanup
-   The original supplier photos correctly show each colour/acabamento, but the
-   hanging certificate/tag is not part of the product presentation. We keep the
-   correct variant photo and frame it so the tag is fully outside/behind the
-   editorial mask on product, thumbnails and zoom. */
+/* CAVERO Royale — supplier tag cleanup
+   Keep every real colour/acabamento distinct while removing the supplier
+   certificate from the visible product presentation. */
 
 body.royale-product .main-photo{
   position:relative;
@@ -10,95 +8,150 @@ body.royale-product .main-photo{
   isolation:isolate;
   background:linear-gradient(145deg,#e9e0d3,#faf7ef)!important;
 }
+
+/* Push the useful part of the source photo (the watch) further into frame and
+   crop the hanging tag out as much as possible before applying the mask. */
 body.royale-product .main-photo>img{
   object-fit:cover!important;
-  object-position:80% 28%!important;
-  transform:scale(1.43)!important;
-  transform-origin:76% 27%!important;
+  object-position:86% 24%!important;
+  transform:scale(1.58)!important;
+  transform-origin:82% 24%!important;
 }
-/* Large editorial patch covering the entire hanging supplier certificate.
-   The angled edge follows the cushion/box line so it reads as background,
-   not as a small patch over the Chinese characters. */
+
+/* Primary cover: hides the full lower-left certificate, not only the Chinese
+   characters. The colour matches the product-photo background/cushion. */
 body.royale-product .main-photo:after{
   content:"";
   position:absolute;
-  left:-3%;
-  bottom:-3%;
-  width:49%;
-  height:68%;
-  z-index:2;
+  left:-4%;
+  bottom:-4%;
+  width:60%;
+  height:79%;
+  z-index:3;
   pointer-events:none;
-  background:
-    radial-gradient(circle at 78% 16%,rgba(245,239,228,.90) 0 20%,transparent 48%),
-    linear-gradient(145deg,#eee7db 0%,#f7f2e9 58%,#f3ede3 100%);
-  clip-path:polygon(0 0,68% 0,100% 38%,88% 100%,0 100%);
+  background:linear-gradient(145deg,#eee7db 0%,#f7f2e9 58%,#f1eadd 100%);
+  clip-path:polygon(0 7%,64% 7%,100% 48%,94% 100%,0 100%);
 }
-body.royale-product .main-photo .zoom-button{z-index:5}
 
-/* Selector/gallery thumbnails: zoom into the watch so the supplier tag never
-   enters the visible thumbnail while every real colour remains distinct. */
+/* Secondary patch closes the small diagonal gap where the bottom of the
+   certificate could still be visible on some Royale variants. */
+body.royale-product .main-photo:before{
+  content:"";
+  position:absolute;
+  left:36%;
+  bottom:-3%;
+  width:25%;
+  height:42%;
+  z-index:4;
+  pointer-events:none;
+  background:linear-gradient(155deg,#f6f1e8 0%,#eee7db 100%);
+  clip-path:polygon(0 40%,100% 0,100% 100%,0 100%);
+}
+body.royale-product .main-photo .zoom-button{z-index:8}
+
+/* Thumbnails and variant selector: zoom further into the watch itself. */
 body.royale-product .variant-thumb-wrap,
 body.royale-product .gallery-thumb{
   overflow:hidden;
   position:relative;
+  isolation:isolate;
   background:#f3eee6!important;
 }
 body.royale-product .variant-thumb,
 body.royale-product .gallery-thumb img{
   object-fit:cover!important;
-  object-position:86% 25%!important;
-  transform:scale(1.82)!important;
-  transform-origin:83% 25%!important;
+  object-position:91% 22%!important;
+  transform:scale(2.08)!important;
+  transform-origin:88% 22%!important;
 }
 body.royale-product .variant-thumb-wrap:after,
 body.royale-product .gallery-thumb:after{
   content:"";
   position:absolute;
-  left:-4%;bottom:-4%;
-  width:36%;height:56%;
-  background:#f3eee6;
-  clip-path:polygon(0 0,65% 0,100% 45%,82% 100%,0 100%);
+  left:-5%;
+  bottom:-5%;
+  width:57%;
+  height:76%;
+  z-index:2;
   pointer-events:none;
+  background:#f3eee6;
+  clip-path:polygon(0 8%,60% 8%,100% 48%,88% 100%,0 100%);
+}
+body.royale-product .variant-thumb-wrap:before,
+body.royale-product .gallery-thumb:before{
+  content:"";
+  position:absolute;
+  left:34%;
+  bottom:-4%;
+  width:28%;
+  height:45%;
+  z-index:3;
+  pointer-events:none;
+  background:#f3eee6;
+  clip-path:polygon(0 42%,100% 0,100% 100%,0 100%);
 }
 
 body.royale-product .variant-option{min-height:84px}
 body.royale-product .variant-thumb-wrap{width:72px;height:64px;border-radius:12px}
 body.royale-product .variant-option.active .variant-thumb-wrap{box-shadow:0 0 0 2px #111 inset}
 
-/* Fullscreen zoom gets the same cleanup — no way for the supplier tag to
-   reappear after pressing “Ampliar”. */
+/* Fullscreen zoom: use exactly the same aggressive crop and double mask so
+   clicking “Ampliar” cannot reveal the supplier certificate again. */
 #imageLightbox.royale-image-lightbox{
   overflow:hidden;
   isolation:isolate;
+  background:#f4efe6!important;
 }
 #imageLightbox.royale-image-lightbox img{
   object-fit:cover!important;
-  object-position:80% 28%!important;
-  transform:scale(1.40)!important;
-  transform-origin:76% 27%!important;
+  object-position:86% 24%!important;
+  transform:scale(1.56)!important;
+  transform-origin:82% 24%!important;
 }
 #imageLightbox.royale-image-lightbox:after{
   content:"";
   position:absolute;
-  left:0;
-  bottom:0;
-  width:45%;
-  height:64%;
-  z-index:3;
+  left:-2%;
+  bottom:-2%;
+  width:58%;
+  height:77%;
+  z-index:4;
   pointer-events:none;
-  background:linear-gradient(145deg,#eee7db 0%,#f7f2e9 60%,#f3ede3 100%);
-  clip-path:polygon(0 0,66% 0,100% 40%,86% 100%,0 100%);
+  background:linear-gradient(145deg,#eee7db 0%,#f7f2e9 58%,#f1eadd 100%);
+  clip-path:polygon(0 7%,64% 7%,100% 48%,94% 100%,0 100%);
 }
-#imageLightbox.royale-image-lightbox .lightbox-close{z-index:8}
+#imageLightbox.royale-image-lightbox:before{
+  content:"";
+  position:absolute;
+  left:35%;
+  bottom:-2%;
+  width:25%;
+  height:41%;
+  z-index:5;
+  pointer-events:none;
+  background:#f2ece2;
+  clip-path:polygon(0 40%,100% 0,100% 100%,0 100%);
+}
+#imageLightbox.royale-image-lightbox .lightbox-close{z-index:10}
 
 @media(max-width:700px){
   body.royale-product .main-photo>img{
-    transform:scale(1.37)!important;
-    object-position:80% 27%!important;
+    transform:scale(1.52)!important;
+    object-position:87% 23%!important;
   }
-  body.royale-product .main-photo:after{width:52%;height:66%}
+  body.royale-product .main-photo:after{width:63%;height:78%}
+  body.royale-product .main-photo:before{left:35%;width:28%;height:44%}
+
   body.royale-product .variant-thumb,
-  body.royale-product .gallery-thumb img{transform:scale(1.75)!important;object-position:87% 25%!important}
-  #imageLightbox.royale-image-lightbox img{transform:scale(1.34)!important}
-  #imageLightbox.royale-image-lightbox:after{width:49%;height:62%}
+  body.royale-product .gallery-thumb img{
+    transform:scale(2.00)!important;
+    object-position:92% 22%!important;
+  }
+
+  #imageLightbox.royale-image-lightbox img{
+    transform:scale(1.50)!important;
+    object-position:87% 23%!important;
+  }
+  #imageLightbox.royale-image-lightbox:after{width:62%;height:76%}
+  #imageLightbox.royale-image-lightbox:before{left:34%;width:29%;height:43%}
 }
