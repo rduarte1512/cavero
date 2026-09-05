@@ -14,6 +14,106 @@
         text: 'O Apex chamou-me logo a atenção pelo design diferente, mas ao vivo ainda fica melhor. O azul do mostrador combina mesmo bem com o acabamento prateado e no pulso tem uma presença brutal. Estou muito satisfeito com a compra.',
         photo: 'assets/reviews/apex-customer-01.jpg',
         date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'Bonito e elegante ao vivo',
+        text: 'O relógio é mesmo bonito ao vivo. O mostrador azul dá-lhe um toque diferente e elegante, e a caixa octogonal faz com que se destaque bastante.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'No pulso fica ainda melhor',
+        text: 'Já tinha gostado dele nas fotos, mas no pulso fica ainda melhor. Tem um design moderno, parece bem construído e combina com praticamente tudo.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'Discreto, mas chama a atenção',
+        text: 'Foi a combinação do azul com o prateado que me fez escolher este modelo. É discreto, mas ao mesmo tempo chama a atenção. Muito satisfeito.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'Uso-o quase todos os dias',
+        text: 'Uso-o quase todos os dias desde que chegou. É confortável, tem um tamanho muito bom no pulso e dá um ar muito mais cuidado ao look.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'Exatamente o design que procurava',
+        text: 'Queria um relógio diferente dos modelos redondos normais e este foi exatamente isso. O design do Apex está muito bem conseguido.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'Aspeto bastante premium',
+        text: 'Fiquei mesmo surpreendido com o aspeto do relógio quando abri a caixa. O acabamento prateado e o mostrador azul dão-lhe um ar bastante premium.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'Recebi vários elogios',
+        text: 'Recebi vários elogios logo nos primeiros dias. É daqueles relógios que chama a atenção sem ser demasiado exagerado.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'Fica bem em qualquer situação',
+        text: 'Para mim, o melhor é conseguir usar este relógio tanto com roupa mais casual como com camisa. Fica bem em qualquer situação.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'O azul muda com a luz',
+        text: 'O azul do mostrador muda ligeiramente conforme a luz e fica mesmo bonito. Foi sem dúvida uma boa escolha.',
+        photo: '',
+        date: ''
+      },
+      {
+        name: 'Cliente CAVERO',
+        variant: 'Prateado e Azul',
+        rating: null,
+        verified: false,
+        title: 'Tem personalidade',
+        text: 'Estava indeciso entre vários modelos, mas ainda bem que escolhi o Apex. Tem personalidade e parece muito mais caro no pulso.',
+        photo: '',
+        date: ''
       }
     ]
   };
