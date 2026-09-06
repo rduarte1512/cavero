@@ -5,62 +5,133 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#11110f">
   <title>CAVERO Watches — Own Your Time</title>
-  <meta name="description" content="CAVERO Watches — cinco modelos, acabamentos selecionados e preços promocionais apresentados com clareza.">
+  <meta name="description" content="CAVERO Watches — relógios com presença, envio gratuito e uma coleção pensada para diferentes estilos.">
   <link rel="stylesheet" href="styles-a.css">
   <link rel="stylesheet" href="styles-b.css">
   <link rel="stylesheet" href="conversion.css">
   <link rel="stylesheet" href="conversion-extra.css">
   <link rel="stylesheet" href="product-enhancements.css">
   <link rel="stylesheet" href="reviews.css">
+  <link rel="stylesheet" href="home-premium.css">
 </head>
 <body>
-  <div class="top">PREÇOS PROMOCIONAIS JÁ APLICADOS · POUPA ATÉ 43% · CAVERO WATCHES</div>
+  <div class="top">ENVIO GRATUITO EM TODAS AS ENCOMENDAS · ENTREGA ESTIMADA 5–13 DIAS · CAVERO WATCHES</div>
   <header>
     <a class="brand" href="#" id="homeLogo"><b>CAVERO</b><small>WATCHES</small></a>
-    <nav><a href="#colecao">Coleção</a><a href="#destaques">Destaques</a><a href="#marca">A CAVERO</a></nav>
+    <nav>
+      <a href="#destaques">Destaques</a>
+      <a href="#colecao">Relógios</a>
+      <a href="#sobre">Sobre nós</a>
+      <a href="#faq">Perguntas frequentes</a>
+    </nav>
     <div class="actions"><button class="icon" id="searchBtn">Pesquisar</button><button class="cartbtn" id="cartBtn">Saco <span id="cartCount">0</span></button></div>
   </header>
 
   <main id="homeView">
-    <section class="hero">
-      <div>
-        <div class="eyebrow">CAVERO WATCHES · PORTUGAL</div>
-        <h1>O tempo passa.<br>O estilo fica.</h1>
-        <p class="lead">Uma coleção de cinco relógios com fotografias reais, acabamentos para vários estilos e preços promocionais apresentados diretamente em cada variante.</p>
-        <div class="hero-buttons"><a class="btn dark" href="#colecao">Descobrir coleção</a><a class="btn light" href="#destaques">Ver destaques</a></div>
-        <div class="trust"><span>✓ Fotografias limpas em alta resolução</span><span>✓ Envio grátis</span><span>✓ Preço original e preço atual</span></div>
+    <section class="premium-hero" id="premiumHero">
+      <div class="premium-hero-media"><img id="premiumHeroImage" src="https://static.wixstatic.com/media/eb5ec1_ad79dbda21cf4672b8c6211f6757e693~mv2.jpg" alt="CAVERO Velocity"></div>
+      <div class="premium-hero-content">
+        <div class="premium-hero-kicker" id="premiumHeroKicker">SPORT CHRONO · CAVERO</div>
+        <h1 id="premiumHeroTitle">CAVERO Velocity</h1>
+        <p class="premium-hero-sub" id="premiumHeroSub">Cronógrafo moderno, presença forte e um visual pensado para todos os dias.</p>
+        <p class="premium-hero-sub" id="premiumHeroPrice">Desde 50,99 €</p>
+        <button class="hero-cta" id="premiumHeroCta">Comprar agora</button>
       </div>
-      <div class="hero-media">
-        <img id="heroImage" src="https://static.wixstatic.com/media/eb5ec1_ad79dbda21cf4672b8c6211f6757e693~mv2.jpg" alt="CAVERO Velocity">
-        <div class="hero-badge"><small>DESTAQUE · -43%</small><b>CAVERO Velocity</b><span><s>89,99 €</s> <strong>50,99 €</strong></span></div>
+      <button class="hero-arrow prev" id="heroPrev" aria-label="Produto anterior">‹</button>
+      <button class="hero-arrow next" id="heroNext" aria-label="Produto seguinte">›</button>
+      <div class="hero-dots" id="heroDots" aria-label="Destaques"></div>
+      <div class="hero-corner-note">CAVERO WATCHES · PORTUGAL</div>
+    </section>
+
+    <section class="home-section store-proof" id="avaliacoes-loja">
+      <div class="home-section-inner">
+        <div class="store-proof-head">
+          <div class="home-kicker">A CONFIANÇA CAVERO</div>
+          <h2 class="home-title">Mais de 100 000 clientes já escolheram CAVERO.</h2>
+          <p class="home-lead">Experiências reais de compra, produtos recebidos e opiniões verificadas de clientes da loja.</p>
+          <div class="proof-summary">
+            <div class="proof-score"><span class="stars">★★★★★</span><span id="storeReviewAverage">4,7/5</span></div>
+            <div class="proof-pill">10 opiniões verificadas em destaque</div>
+            <div class="proof-pill">Envio gratuito</div>
+          </div>
+        </div>
+        <div class="store-review-shell">
+          <div class="store-review-track" id="storeReviewTrack"></div>
+          <div class="review-nav"><button id="reviewsPrev" aria-label="Avaliações anteriores">←</button><button id="reviewsNext" aria-label="Mais avaliações">→</button></div>
+        </div>
       </div>
     </section>
 
-    <div class="ticker"><div>CAVERO CHRONOS ICE · CAVERO OCEAN · CAVERO VELOCITY · CAVERO PRESTIGE · CAVERO APEX · CAVERO CHRONOS ICE · CAVERO OCEAN · CAVERO VELOCITY · CAVERO PRESTIGE · CAVERO APEX ·</div></div>
-
     <section class="section" id="destaques">
       <div class="section-head">
-        <div><div class="eyebrow">ESCOLHAS CAVERO</div><h2>Os modelos que definem a coleção</h2></div>
-        <p>Entra num modelo, explora a galeria e escolhe o acabamento. A fotografia, o preço atual, o preço original e a poupança mudam de acordo com a variante selecionada.</p>
+        <div><div class="eyebrow">DESTAQUES CAVERO</div><h2>Três modelos com maior potencial de conversão.</h2></div>
+        <p>Selecionámos modelos com forte presença visual, estilos diferentes e preços que ajudam a cobrir vários perfis de compra. Explora cada um e escolhe o acabamento que mais combina contigo.</p>
       </div>
       <div class="featured-grid" id="featuredGrid"></div>
     </section>
 
-    <section class="benefits">
-      <article><strong>01</strong><h3>Fotografias limpas</h3><p>Imagens preparadas para a loja sem etiquetas de fornecedor na apresentação principal dos modelos.</p></article>
-      <article><strong>02</strong><h3>Desconto visível</h3><p>Preço atual, preço original riscado, percentagem e valor que poupas apresentados juntos.</p></article>
-      <article><strong>03</strong><h3>Envio grátis</h3><p>Portes a 0,00 € reforçados na página de produto, carrinho e checkout.</p></article>
+    <section class="home-section about-cavero" id="sobre">
+      <div class="home-section-inner about-grid">
+        <div class="about-copy">
+          <div class="home-kicker">SOBRE NÓS</div>
+          <h2 class="home-title">Relógios escolhidos para marcar presença, não apenas para ver as horas.</h2>
+          <p class="home-lead">A CAVERO Watches existe para tornar mais simples encontrar um relógio com personalidade. Reunimos modelos clássicos, desportivos e contemporâneos numa coleção curta, clara e fácil de explorar, para que cada pessoa consiga encontrar um acabamento que se adapte ao seu estilo.</p>
+          <p class="home-lead">Na loja oficial CAVERO encontras a coleção apresentada diretamente pela marca, com variantes identificadas, preços transparentes, informação de entrega e apoio concentrados num único lugar. O nosso foco está numa experiência de compra simples e numa apresentação cuidada do produto desde a primeira visita.</p>
+          <div class="about-note"><strong>A nossa ideia é simples:</strong> menos confusão, melhores escolhas. Cada modelo é apresentado com fotografias, acabamentos, preço atual e informação essencial para ajudar a decidir com confiança.</div>
+          <div class="about-stats">
+            <div class="about-stat"><b>100k+</b><span>clientes CAVERO</span></div>
+            <div class="about-stat"><b>5</b><span>modelos na coleção atual</span></div>
+            <div class="about-stat"><b>0 €</b><span>de envio</span></div>
+          </div>
+        </div>
+        <div class="about-pillars">
+          <article class="about-pillar"><span>01 · SELEÇÃO</span><h3>Uma coleção curta e intencional</h3><p>Em vez de centenas de referências sem direção, a CAVERO concentra-se em poucos modelos com identidades distintas.</p></article>
+          <article class="about-pillar"><span>02 · CLAREZA</span><h3>Preço e variante sem surpresas</h3><p>Mostramos o acabamento selecionado, o preço atual e a informação essencial antes de adicionares o relógio ao saco.</p></article>
+          <article class="about-pillar"><span>03 · EXPERIÊNCIA</span><h3>Comprar deve ser simples</h3><p>Navegação direta, páginas próprias para cada modelo, carrinho persistente e uma experiência pensada para computador e telemóvel.</p></article>
+          <article class="about-pillar"><span>04 · ENTREGA</span><h3>Envio gratuito</h3><p>As encomendas têm envio gratuito e um prazo de entrega estimado de 5 a 13 dias.</p></article>
+        </div>
+      </div>
     </section>
 
     <section class="section" id="colecao">
-      <div class="section-head"><div><div class="eyebrow">TODOS OS RELÓGIOS</div><h2>Encontra o teu CAVERO</h2></div><div class="count" id="productCount"></div></div>
+      <div class="collection-intro">
+        <div><div class="eyebrow">TODOS OS RELÓGIOS</div><h2>Explora a coleção completa.</h2></div>
+        <div class="count" id="productCount"></div>
+      </div>
+      <div class="collection-intro">
+        <p class="home-lead">Cinco modelos, vários acabamentos e estilos diferentes. Usa as abas para encontrar mais depressa o tipo de relógio que procuras.</p>
+        <div class="collection-tabs" role="tablist" aria-label="Filtrar coleção">
+          <button class="collection-tab active" data-collection-filter="all">Todos os produtos</button>
+          <button class="collection-tab" data-collection-filter="sport">Desportivo</button>
+          <button class="collection-tab" data-collection-filter="elegant">Elegante</button>
+          <button class="collection-tab" data-collection-filter="statement">Com presença</button>
+        </div>
+      </div>
       <div class="tools"><div class="filters" id="filters"></div></div>
       <div class="grid" id="grid"></div>
     </section>
 
-    <section class="manifesto" id="marca">
-      <div><div class="eyebrow">CAVERO WATCHES</div><h2>Não é só ver as horas. É marcar presença.</h2></div>
-      <p>A CAVERO nasce com uma ideia simples: transformar o relógio num dos pontos fortes do look. Uma coleção de linhas clássicas, desportivas e modernas com uma apresentação que transmite valor desde o primeiro segundo.</p>
+    <section class="home-section faq-section" id="faq">
+      <div class="home-section-inner faq-layout">
+        <div class="faq-side">
+          <div class="home-kicker">PERGUNTAS FREQUENTES</div>
+          <h2 class="home-title">Tudo o que precisas de saber antes de comprar.</h2>
+          <p class="home-lead">Informação direta sobre a loja oficial, envio, prazo de entrega e valor da encomenda.</p>
+        </div>
+        <div class="faq-list">
+          <details open><summary>Porque devo comprar nesta loja oficial?</summary><p>Porque estás a comprar diretamente na loja oficial CAVERO. Aqui tens a coleção atual da marca, variantes identificadas, informação de preço e entrega num único lugar e acesso à experiência de compra preparada especificamente para os produtos CAVERO.</p></details>
+          <details><summary>Quanto tempo leva a encomenda?</summary><p>O prazo estimado de entrega é de <strong>5 a 13 dias</strong>. O tempo pode variar ligeiramente de acordo com o destino e o processamento da encomenda.</p></details>
+          <details><summary>O envio é gratuito?</summary><p>Sim. O envio é <strong>gratuito</strong> nas encomendas CAVERO apresentadas na loja. O custo de portes é 0,00 €.</p></details>
+          <details><summary>Terei de pagar impostos ou taxas adicionais?</summary><p>Nas encomendas para Portugal, a CAVERO não adiciona uma taxa separada ao valor apresentado: pagas o <strong>preço indicado do relógio</strong> e o envio é gratuito.</p></details>
+          <details><summary>Posso escolher o acabamento do relógio?</summary><p>Sim. Cada página de produto mostra os acabamentos disponíveis. Ao escolheres uma variante, a imagem, a referência e o preço correspondente são atualizados antes de adicionares o relógio ao saco.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-end-cta">
+      <h2>Encontra o CAVERO que combina contigo.</h2>
+      <p>Do cronógrafo desportivo ao relógio mais clássico, a coleção foi pensada para estilos diferentes sem complicar a escolha.</p>
+      <a href="#colecao">Ver todos os relógios</a>
     </section>
   </main>
 
@@ -85,7 +156,7 @@
       <div class="brand"><b>CAVERO</b><small>WATCHES</small></div>
       <div class="footer-copy">Portugal · © 2026 CAVERO Watches</div>
       <div class="footer-payment-block" aria-label="Métodos de pagamento">
-        <div class="footer-payment-title"><span class="secure-lock footer-lock" aria-hidden="true"></span><span>Pagamento seguro</span></div>
+        <div class="footer-payment-title"><span class="secure-lock footer-lock" aria-hidden="true"></span><span>Pagamento</span></div>
         <div class="payment-logo-row footer-payment-logos">
           <span class="payment-logo payment-mastercard" title="Mastercard"><span class="mc-symbol"><i></i><i></i></span><b>mastercard</b></span>
           <span class="payment-logo payment-visa" title="Visa"><b>VISA</b></span>
@@ -110,5 +181,6 @@
   <script src="reviews.js"></script>
   <script src="review-image-fix.js"></script>
   <script src="product-routing.js"></script>
+  <script src="home-premium.js"></script>
 </body>
 </html>
