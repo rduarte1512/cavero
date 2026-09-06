@@ -9,6 +9,18 @@ updateCart = function(){
 };
 updateCart();
 
+// Make the featured section sound customer-facing instead of like internal marketing copy.
+function updateFeaturedSectionCopy(){
+  const section = document.getElementById('destaques');
+  if (!section) return;
+  const title = section.querySelector('.section-head h2');
+  const copy = section.querySelector('.section-head > p');
+  if (title) title.textContent = 'Três formas de marcar presença.';
+  if (copy) copy.textContent = 'Descobre três estilos distintos da CAVERO, escolhidos para diferentes momentos e personalidades. Encontra o relógio e o acabamento que mais combinam contigo.';
+}
+updateFeaturedSectionCopy();
+document.addEventListener('DOMContentLoaded', updateFeaturedSectionCopy, { once:true });
+
 // Load the CAVERO bracelet gift experience without changing the base page bundle order.
 if (!document.querySelector('link[data-bracelet-gift-css]')) {
   const giftCss = document.createElement('link');
