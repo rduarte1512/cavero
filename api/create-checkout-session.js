@@ -1,5 +1,5 @@
 import { randomUUID, createHash } from 'node:crypto';
-import { resolveCart, cartFingerprint, getStripe, publicOrigin, requestOrigin, json, fail, invalid } from './_lib/store.js';
+import { resolveCart, cartFingerprint, getStripe, assertStoreAccount, publicOrigin, requestOrigin, json, fail, invalid } from './_lib/store.js';
 import { validateReward } from './_lib/rewards.js';
 
 export default async function handler(req, res) {
@@ -11,6 +11,7 @@ export default async function handler(req, res) {
     const body = req.body || {};
     const { items, subtotal, compareTotal, savings } = resolveCart(body.items);
     const stripe = getStripe();
+    await assertStoreAccount(stripe);
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
     if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw invalid('Indica um email válido.');
     const reward = await validateReward(body.promotionCode || '', email);
