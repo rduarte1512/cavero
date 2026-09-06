@@ -46,17 +46,21 @@ export function resolveCart(input) {
 export function cartFingerprint(items, promotionCode = '') {
   return createHash('sha256').update(JSON.stringify({ items: items.map(i => [i.id, i.qty]), promotionCode })).digest('hex');
 }
+export function stripeMode() {
+  const key = process.env.STRIPE_SECRET_KEY?.trim();
+  const inferred = /^(?:sk|rk)_(test|live)_\S+$/.exec(key || '')?.[1];
+  if (!inferred) throw new Error('STRIPE_SECRET_KEY ausente ou inválida.');
+  const configured = process.env.CAVERO_STRIPE_MODE?.trim();
+  if (configured && configured !== inferred) throw new Error('CAVERO_STRIPE_MODE não corresponde à chave Stripe configurada.');
+  return inferred;
+}
 export function getStripe() {
-  const key = process.env.STRIPE_SECRET_KEY;
-  const mode = process.env.CAVERO_STRIPE_MODE || 'test';
-  if (!['test', 'live'].includes(mode) || !key || !key.startsWith(mode === 'live' ? 'sk_live_' : 'sk_test_')) {
-    throw new Error('Stripe não configurada para o ambiente selecionado.');
-  }
-  return new Stripe(key, { maxNetworkRetries: 2 });
+  stripeMode();
+  return new Stripe(process.env.STRIPE_SECRET_KEY.trim(), { maxNetworkRetries: 2 });
 }
 export function publicKey() {
-  const key = process.env.STRIPE_PUBLISHABLE_KEY;
-  const mode = process.env.CAVERO_STRIPE_MODE || 'test';
+  const key = process.env.STRIPE_PUBLISHABLE_KEY?.trim();
+  const mode = stripeMode();
   if (!key || !key.startsWith(mode === 'live' ? 'pk_live_' : 'pk_test_')) throw new Error('Chave pública Stripe não configurada.');
   return key;
 }
@@ -91,7 +95,7 @@ export async function assertStoreAccount(stripe) {
   if (!expected || !/^acct_[A-Za-z0-9]+$/.test(expected)) throw new Error('Configura o ID da conta Stripe exclusiva da CAVERO.');
   const account = await stripe.accounts.retrieve();
   if (account.id !== expected) throw new Error('As chaves Stripe não pertencem à conta CAVERO configurada.');
-  if (process.env.CAVERO_STRIPE_MODE === 'live' && account.charges_enabled !== true) throw new Error('A conta Stripe ainda não está autorizada a receber pagamentos.');
+  if (stripeMode() === 'live' && account.charges_enabled !== true) throw new Error('A conta Stripe ainda não está autorizada a receber pagamentos.');
   if (process.env.CAVERO_CHECKOUT_ENABLED !== 'true') throw new Error('O checkout ainda não foi ativado pelo proprietário da loja.');
   if (!process.env.STRIPE_WEBHOOK_SECRET?.startsWith('whsec_')) throw new Error('O webhook Stripe ainda não está configurado.');
   publicKey();
