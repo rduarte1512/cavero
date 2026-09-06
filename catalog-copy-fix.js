@@ -8,3 +8,19 @@ updateCart = function(){
   }
 };
 updateCart();
+
+// Load the CAVERO bracelet gift experience without changing the base page bundle order.
+if (!document.querySelector('link[data-bracelet-gift-css]')) {
+  const giftCss = document.createElement('link');
+  giftCss.rel = 'stylesheet';
+  giftCss.href = '/bracelet-gift.css?v=1';
+  giftCss.dataset.braceletGiftCss = 'true';
+  document.head.appendChild(giftCss);
+}
+if (!document.querySelector('script[data-bracelet-gift-js]')) {
+  const giftScript = document.createElement('script');
+  giftScript.src = '/bracelet-gift.js?v=1';
+  giftScript.async = false;
+  giftScript.dataset.braceletGiftJs = 'true';
+  document.body.appendChild(giftScript);
+}
