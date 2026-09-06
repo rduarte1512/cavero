@@ -1,6 +1,12 @@
 {
   "rewrites": [
     { "source": "/catalogo", "destination": "/index.html" },
+    { "source": "/pesquisar", "destination": "/index.html" },
+    { "source": "/politica-de-privacidade", "destination": "/index.html" },
+    { "source": "/politica-de-devolucoes", "destination": "/index.html" },
+    { "source": "/aviso-legal", "destination": "/index.html" },
+    { "source": "/politica-de-envio", "destination": "/index.html" },
+    { "source": "/termos-de-servico", "destination": "/index.html" },
     { "source": "/cavero-chronos-ice", "destination": "/index.html" },
     { "source": "/cavero-ocean", "destination": "/index.html" },
     { "source": "/cavero-velocity", "destination": "/index.html" },
