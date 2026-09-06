@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "api/*.js": { "includeFiles": "data.js" }
+  },
   "rewrites": [
     { "source": "/catalogo", "destination": "/index.html" },
     { "source": "/pesquisar", "destination": "/index.html" },
@@ -14,6 +17,11 @@
     { "source": "/cavero-ocean", "destination": "/index.html" },
     { "source": "/cavero-velocity", "destination": "/index.html" },
     { "source": "/cavero-prestige", "destination": "/index.html" },
-    { "source": "/cavero-apex", "destination": "/index.html" }
+    { "source": "/cavero-apex", "destination": "/index.html" },
+    { "source": "/checkout", "destination": "/index.html" },
+    { "source": "/checkout/confirmacao", "destination": "/index.html" }
+  ],
+  "headers": [
+    { "source": "/api/(.*)", "headers": [ { "key": "Cache-Control", "value": "no-store" } ] }
   ]
 }
