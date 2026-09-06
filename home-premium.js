@@ -130,9 +130,24 @@
     }));
   }
 
+  function initHomeAnchors(){
+    document.querySelectorAll('header nav a[href^="#"], .home-end-cta a[href^="#"]').forEach(link=>{
+      link.addEventListener('click',event=>{
+        const selector=link.getAttribute('href');
+        const target=selector ? document.querySelector(selector) : null;
+        const home=document.getElementById('homeView');
+        if(!target||!home||!home.classList.contains('hidden')) return;
+        event.preventDefault();
+        if(typeof window.showHome==='function') window.showHome();
+        setTimeout(()=>target.scrollIntoView({behavior:'smooth',block:'start'}),80);
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded',()=>{
     initHero();
     initStoreReviews();
     initCollectionTabs();
+    initHomeAnchors();
   });
 })();
