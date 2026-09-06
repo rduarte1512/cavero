@@ -24,7 +24,7 @@
 .checkout-gift-item img{width:70px;height:70px;object-fit:cover;border-radius:12px}
 .checkout-gift-item small{display:block;color:#65736c;margin-top:4px}.checkout-gift-item .gift-free{color:#216044;font-weight:900}
 
-.catalog-card-media:after,.featured .media:after{content:'🎁 PULSEIRA GRÁTIS';position:absolute;right:12px;bottom:12px;z-index:4;background:#163f3b;color:#fff;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:900;letter-spacing:.06em;box-shadow:0 8px 20px rgba(0,0,0,.16)}
+.catalog-card-media:after,.featured .media:after,.product-media:after{content:'🎁 PULSEIRA GRÁTIS';position:absolute;right:12px;bottom:12px;z-index:4;background:#163f3b;color:#fff;border-radius:999px;padding:8px 10px;font-size:9px;font-weight:900;letter-spacing:.06em;box-shadow:0 8px 20px rgba(0,0,0,.16)}
 
 @media(max-width:760px){
   .cavero-gift-strip-inner{grid-template-columns:84px 1fr;gap:14px}.cavero-gift-strip-image{width:84px;height:84px}.cavero-gift-strip-cta{grid-column:1/-1;width:100%}
