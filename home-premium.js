@@ -1,4 +1,11 @@
 (() => {
+  if(!document.querySelector('link[href="hero-visibility-fix.css"]')){
+    const heroStyles=document.createElement('link');
+    heroStyles.rel='stylesheet';
+    heroStyles.href='hero-visibility-fix.css';
+    document.head.appendChild(heroStyles);
+  }
+
   const heroKeys = ['velocity','apex','chronos'];
   const heroCopy = {
     velocity: { kicker:'SPORT CHRONO · CAVERO', line:'Cronógrafo moderno, presença forte e um visual pensado para todos os dias.' },
