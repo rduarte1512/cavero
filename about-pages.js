@@ -56,4 +56,15 @@
       ['apoio','8. Antes e depois da encomenda',`<p>A informação sobre envio, devoluções e condições de compra permanece disponível no website para consulta. Se surgir uma questão relacionada com uma encomenda, guarda sempre a confirmação e a referência da compra para facilitar qualquer contacto de apoio.</p>`]
     ]
   };
+
+  const footerBrandBlock = document.querySelector('.footer-brand-block');
+  if (footerBrandBlock) {
+    footerBrandBlock.classList.add('footer-offer-block');
+    footerBrandBlock.innerHTML = `
+      <a class="brand footer-offer-brand" href="/" aria-label="CAVERO Watches — página inicial"><b>CAVERO</b><small>WATCHES</small></a>
+      <h3>Faz uma compra e recebe 20% de desconto na próxima encomenda.</h3>
+      <p class="footer-offer-copy">Depois de concluíres uma compra na CAVERO Watches, recebes acesso a <strong>20% de desconto</strong> para usar numa encomenda seguinte, de acordo com as condições da campanha.</p>
+      <div class="footer-offer-points"><span>✓ Benefício para clientes CAVERO</span><span>✓ Para uma próxima encomenda</span></div>
+      <div class="footer-copy">Portugal · © 2026 CAVERO Watches</div>`;
+  }
 })();
