@@ -12,7 +12,18 @@
       {name:'Cliente CAVERO',variant:'CAVERO Chronos Ice',rating:5,verified:true,title:'Ao vivo é outra coisa',text:'Nas fotografias já parecia bonito, mas ao vivo é outra coisa. O mostrador e os submostradores dão-lhe um visual mesmo premium.',photo:'',date:''},
       {name:'Cliente CAVERO',variant:'CAVERO Chronos Ice',rating:4,verified:true,title:'Superou as expectativas',text:'Foi uma compra que superou as expectativas. O relógio é bonito, tem presença e parece muito mais exclusivo do que eu imaginava.',photo:'',date:''}
     ],
-    ocean: [],
+    ocean: [
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Muito melhor no pulso',text:'O Ocean ficou muito melhor no pulso do que eu esperava. Tem um estilo desportivo muito bonito e é super fácil de combinar no dia a dia.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:4,verified:true,title:'Perfeito para todos os dias',text:'Queria um relógio mais casual para usar todos os dias e este foi perfeito. É confortável, leve e tem um design mesmo bem conseguido.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Visual moderno',text:'O que mais gostei foi o visual moderno. O relógio destaca-se sem ser demasiado chamativo e fica muito bem com roupa mais descontraída.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Uso-o praticamente todos os dias',text:'Uso o Ocean praticamente todos os dias desde que chegou. É simples, bonito e bastante confortável no pulso.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:4,verified:true,title:'Ao vivo gostei ainda mais',text:'Ao vivo gostei ainda mais do que nas fotos. Tem um aspeto muito limpo e desportivo e nota-se bastante bem no pulso.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Exatamente o que procurava',text:'Foi exatamente o tipo de relógio que procurava para usar de forma mais casual. Fica bem com t-shirt, polo ou até com uma camisa.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Muito satisfeito com a escolha',text:'Muito satisfeito com a escolha. O Ocean tem um design jovem, moderno e dá um toque diferente ao look sem exagerar.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:4,verified:true,title:'Confortável e no tamanho certo',text:'O relógio é muito confortável e o tamanho ficou perfeito para mim. Tornou-se rapidamente num dos que mais uso.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Surpreendeu-me pelo preço',text:'Gostei bastante do acabamento e do estilo mais desportivo. Pelo preço, fiquei mesmo surpreendido com o aspeto do relógio.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Simples mas com personalidade',text:'Escolhi o Ocean porque queria algo simples mas com personalidade. Ficou mesmo bem no pulso e já me perguntaram várias vezes onde o comprei.',photo:'',date:''}
+    ],
     velocity: [],
     prestige: [],
     apex: [
