@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/cavero-chronos-ice", "destination": "/index.html" },
+    { "source": "/cavero-ocean", "destination": "/index.html" },
+    { "source": "/cavero-velocity", "destination": "/index.html" },
+    { "source": "/cavero-prestige", "destination": "/index.html" },
+    { "source": "/cavero-apex", "destination": "/index.html" }
+  ]
+}
