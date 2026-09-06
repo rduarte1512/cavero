@@ -24,25 +24,25 @@ body>header nav a{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 /* HERO */
 .premium-hero{
   position:relative;min-height:720px;overflow:hidden;display:grid;place-items:center;
-  background:
-    radial-gradient(circle at 52% 42%,rgba(255,255,255,.96) 0 13%,rgba(225,218,207,.84) 35%,transparent 62%),
-    linear-gradient(120deg,#9d9992 0%,#d9d1c5 32%,#b7ada1 63%,#dad5cc 100%);
+  background:#171915;
   isolation:isolate;
 }
-.premium-hero:before,.premium-hero:after{
-  content:"";position:absolute;inset:auto;z-index:-1;filter:blur(1px);opacity:.72;pointer-events:none
+.premium-hero:before,.premium-hero:after{display:none}
+.premium-hero-media{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.premium-hero-media:after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(8,10,9,.10) 0%,rgba(8,10,9,.16) 38%,rgba(8,10,9,.36) 100%);
 }
-.premium-hero:before{width:60vw;height:22vw;left:-8vw;bottom:3vw;background:rgba(245,236,222,.58);transform:rotate(-9deg)}
-.premium-hero:after{width:62vw;height:26vw;right:-18vw;bottom:7vw;background:rgba(87,92,95,.26);transform:rotate(5deg)}
-.premium-hero-media{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
 .premium-hero-media img{
-  width:min(590px,46vw);height:min(650px,69vh);object-fit:contain;filter:drop-shadow(0 28px 35px rgba(0,0,0,.24));
-  transform:scale(1.04);transition:opacity .36s ease,transform .55s ease;
+  position:absolute;inset:0;width:100%;height:100%;max-width:none;
+  object-fit:cover;object-position:center center;
+  filter:none;transform:scale(1.015);
+  transition:opacity .36s ease,transform .65s ease;
 }
-.premium-hero-media img.is-changing{opacity:0;transform:scale(.98)}
+.premium-hero-media img.is-changing{opacity:0;transform:scale(1.045)}
 .premium-hero-content{
   position:relative;z-index:2;text-align:center;color:#fff;width:min(920px,86vw);padding-top:130px;
-  text-shadow:0 2px 20px rgba(0,0,0,.28)
+  text-shadow:0 3px 22px rgba(0,0,0,.48)
 }
 .premium-hero-kicker{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;margin-bottom:26px}
 .premium-hero h1{font-size:clamp(54px,6vw,96px);line-height:.95;letter-spacing:-.045em;margin:0 0 22px;font-weight:700}
@@ -60,7 +60,7 @@ body>header nav a{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 .hero-dots{position:absolute;z-index:3;bottom:28px;display:flex;gap:10px}
 .hero-dot{width:8px;height:8px;border-radius:999px;border:0;background:rgba(255,255,255,.52);padding:0;cursor:pointer;transition:.2s}
 .hero-dot.active{width:25px;background:#fff}
-.hero-corner-note{position:absolute;left:34px;bottom:26px;color:#fff;font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:800}
+.hero-corner-note{position:absolute;z-index:3;left:34px;bottom:26px;color:#fff;font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;text-shadow:0 2px 12px rgba(0,0,0,.45)}
 
 /* shared homepage section */
 .home-section{padding:96px max(5vw,28px)}
@@ -155,7 +155,7 @@ body>header nav a{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 @media (max-width:980px){
   body>header nav{display:none}
   .premium-hero{min-height:650px}
-  .premium-hero-media img{width:min(540px,72vw);height:560px}
+  .premium-hero-media img{width:100%;height:100%;object-fit:cover;object-position:center}
   .premium-hero-content{padding-top:180px}
   .hero-arrow{width:48px;height:48px}.hero-arrow.prev{left:18px}.hero-arrow.next{right:18px}
   .about-grid,.faq-layout{grid-template-columns:1fr;gap:38px}.faq-side{position:static}
@@ -164,7 +164,7 @@ body>header nav a{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 @media (max-width:680px){
   body .top{text-align:center;padding:0 14px;font-size:9px;line-height:1.4}
   .premium-hero{min-height:610px}
-  .premium-hero-media img{width:88vw;height:470px;margin-top:-30px}
+  .premium-hero-media img{width:100%;height:100%;object-fit:cover;object-position:center;margin:0}
   .premium-hero-content{padding-top:235px;width:88vw}
   .premium-hero h1{font-size:48px}.premium-hero-sub{font-size:13px;max-width:82vw}.premium-hero-kicker{font-size:10px}
   .hero-arrow{top:auto;bottom:20px;translate:0 0;width:40px;height:40px}.hero-arrow.prev{left:20px}.hero-arrow.next{right:20px}
