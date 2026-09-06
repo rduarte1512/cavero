@@ -1,6 +1,8 @@
 (() => {
   const DEFAULT_TITLE = 'CAVERO Watches — Own Your Time';
   const CATALOG_PATH = '/catalogo';
+  const SITE_PATHS = window.CAVERO_SITE_PATHS || {};
+  const SITE_ROUTE_TO_KEY = window.CAVERO_SITE_ROUTE_TO_KEY || {};
 
   const PRODUCT_PATHS = {
     chronos: '/cavero-chronos-ice',
@@ -171,11 +173,16 @@
     document.getElementById('catalogView')?.classList.add('hidden');
   }
 
+  function hideSitePage(){
+    if (typeof window.CAVERO_hideSitePage === 'function') window.CAVERO_hideSitePage();
+  }
+
   function showCatalogBase(){
     const view = ensureCatalogView();
     document.getElementById('homeView')?.classList.add('hidden');
     document.getElementById('productView')?.classList.add('hidden');
     document.getElementById('checkoutView')?.classList.add('hidden');
+    hideSitePage();
     view.classList.remove('hidden');
     renderCatalog();
     window.scrollTo(0,0);
@@ -205,6 +212,12 @@
     document.title = 'Catálogo | CAVERO Watches';
   }
 
+  function setSiteMeta(key){
+    if(key==='search'){document.title='Pesquisar | CAVERO Watches';return}
+    const page=window.CAVERO_SITE_PAGES?.[key];
+    document.title=page?.title?`${page.title} | CAVERO Watches`:DEFAULT_TITLE;
+  }
+
   window.openProduct = function(key) {
     const path = PRODUCT_PATHS[key];
     if (!path) return baseOpenProduct(key);
@@ -214,6 +227,7 @@
     }
 
     hideCatalog();
+    hideSitePage();
     baseOpenProduct(key);
     setProductMeta(key);
   };
@@ -224,6 +238,7 @@
     }
 
     hideCatalog();
+    hideSitePage();
     baseShowHome();
     setHomeMeta();
   };
@@ -236,38 +251,64 @@
     setCatalogMeta();
   };
 
+  window.openSitePage = function(key){
+    const path=SITE_PATHS[key];
+    if(!path || typeof window.CAVERO_showSitePageBase!=='function') return;
+    if(!handlingHistory && normalizePath(window.location.pathname)!==path){
+      history.pushState({view:'site-page',siteKey:key},'',path);
+    }
+    hideCatalog();
+    window.CAVERO_showSitePageBase(key);
+    setSiteMeta(key);
+  };
+
   if (typeof baseGoCheckout === 'function') {
     window.goCheckout = function(){
       hideCatalog();
+      hideSitePage();
       return baseGoCheckout();
     };
   }
 
   document.querySelectorAll('a[href="#colecao"]').forEach(link=>link.setAttribute('href',CATALOG_PATH));
+
+  const headerSearch=document.getElementById('searchBtn');
+  if(headerSearch) headerSearch.onclick=()=>window.openSitePage('search');
+
   document.addEventListener('click',event=>{
-    const link = event.target.closest(`a[href="${CATALOG_PATH}"]`);
-    if (!link) return;
-    event.preventDefault();
-    window.openCatalog();
+    const link=event.target.closest('a[href]');
+    if(!link) return;
+    const href=normalizePath(link.getAttribute('href')||'');
+    if(href===CATALOG_PATH){event.preventDefault();window.openCatalog();return}
+    const siteKey=SITE_ROUTE_TO_KEY[href];
+    if(siteKey){event.preventDefault();window.openSitePage(siteKey)}
   });
 
   function renderCurrentRoute() {
     const path = normalizePath(window.location.pathname);
     const key = PATH_TO_KEY[path];
+    const siteKey = SITE_ROUTE_TO_KEY[path];
 
     handlingHistory = true;
     try {
-      if (path === CATALOG_PATH) {
+      if (siteKey && typeof window.CAVERO_showSitePageBase==='function') {
+        hideCatalog();
+        window.CAVERO_showSitePageBase(siteKey);
+        setSiteMeta(siteKey);
+        history.replaceState({view:'site-page',siteKey},'',path);
+      } else if (path === CATALOG_PATH) {
         showCatalogBase();
         setCatalogMeta();
         history.replaceState({view:'catalog'},'',CATALOG_PATH);
       } else if (key && getFamily(key)) {
         hideCatalog();
+        hideSitePage();
         baseOpenProduct(key);
         setProductMeta(key);
         history.replaceState({ view: 'product', productKey: key }, '', path);
       } else {
         hideCatalog();
+        hideSitePage();
         baseShowHome();
         setHomeMeta();
         if (path === '/') history.replaceState({ view: 'home' }, '', '/');
