@@ -1,17 +1,5 @@
 (() => {
-  const GIFT_IMAGE = '/assets/bracelet-gift.webp';
-
-  function homeGiftStrip(){
-    const hero=document.getElementById('premiumHero');
-    if(!hero || document.querySelector('.cavero-gift-strip')) return;
-    hero.insertAdjacentHTML('afterend',`<section class="cavero-gift-strip" aria-label="Oferta pulseira CAVERO">
-      <div class="cavero-gift-strip-inner">
-        <img class="cavero-gift-strip-image" src="${GIFT_IMAGE}" alt="Pulseira de oferta CAVERO">
-        <div class="cavero-gift-strip-copy"><small>OFERTA CAVERO</small><h2>Compra um relógio e recebe esta pulseira grátis.</h2><p>A pulseira é incluída na tua encomenda sem custo adicional. Manténs também o envio gratuito em toda a compra.</p></div>
-        <a class="cavero-gift-strip-cta" href="/catalogo">Escolher relógio →</a>
-      </div>
-    </section>`);
-  }
+  const GIFT_IMAGE = window.CAVERO_BRACELET_IMAGE || '/assets/bracelet-gift.webp';
 
   function productGiftPanel(){
     const detail=document.querySelector('#productView .detail');
@@ -49,7 +37,7 @@
     document.querySelectorAll('.catalog-card').forEach(card=>card.setAttribute('data-gift','true'));
   }
 
-  homeGiftStrip();
+  document.querySelector('.cavero-gift-strip')?.remove();
 
   if(typeof window.openProduct==='function'){
     const baseOpenProduct=window.openProduct;
