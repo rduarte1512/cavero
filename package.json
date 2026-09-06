@@ -1,0 +1,13 @@
+{
+  "name": "cavero-watches",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "stripe": "^18.0.0"
+  }
+}
