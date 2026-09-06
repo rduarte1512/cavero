@@ -26,23 +26,31 @@ export default async function handler(req, res) {
     return json(res, 400, { error: 'Assinatura ou payload inválido.' });
   }
   try {
-    const session = event.data.object;
-    if (session.object !== 'checkout.session' || session.metadata?.store !== 'cavero') return json(res, 200, { received: true });
+    if (!['checkout.session.completed', 'checkout.session.async_payment_succeeded', 'checkout.session.async_payment_failed', 'checkout.session.expired'].includes(event.type)) return json(res, 200, { received: true });
     const stripe = getStripe();
-    if (['checkout.session.completed', 'checkout.session.async_payment_succeeded'].includes(event.type)) {
-      if (session.payment_status === 'paid') {
-        if (session.payment_intent) {
-          await stripe.paymentIntents.update(session.payment_intent, {
-            metadata: {
-              store: 'cavero', order_reference: session.metadata.order_reference,
-              cart: session.metadata.cart, gift_sku: 'bracelet-gift', gift_quantity: '1',
-              fulfillment_status: 'pending'
-            }
-          }, { idempotencyKey: `cavero:fulfillment-metadata:${session.id}:v1` });
-        }
-        await issueReward(session);
-        console.info('CAVERO paid order:', JSON.stringify({ session: session.id, order: session.metadata.order_reference, event: event.id }));
+    const eventSession = event.data.object;
+    if (eventSession.object !== 'checkout.session' || eventSession.metadata?.store !== 'cavero') return json(res, 200, { received: true });
+    const session = await stripe.checkout.sessions.retrieve(eventSession.id);
+    if (session.metadata?.store !== 'cavero') return json(res, 200, { received: true });
+    if (['checkout.session.completed', 'checkout.session.async_payment_succeeded'].includes(event.type) && session.payment_status === 'paid') {
+      if (session.payment_intent) {
+        const pi = await stripe.paymentIntents.retrieve(session.payment_intent);
+        if (pi.status !== 'succeeded') throw new Error('O PaymentIntent ainda não foi confirmado.');
+        if (pi.metadata.store && pi.metadata.store !== 'cavero') throw new Error('PaymentIntent de outra loja.');
+        const metadata = {
+          ...pi.metadata, store: 'cavero', order_reference: session.metadata.order_reference,
+          cart: session.metadata.cart, gift_sku: 'bracelet-gift', gift_quantity: '1',
+          fulfillment_status: pi.metadata.fulfillment_status || 'pending'
+        };
+        await stripe.paymentIntents.update(pi.id, { metadata }, { idempotencyKey: `cavero:fulfillment-metadata:${session.id}:v1` });
       }
+      const reward = await issueReward(session);
+      if (reward && session.metadata.reward_code !== reward.code) {
+        await stripe.checkout.sessions.update(session.id, {
+          metadata: { ...session.metadata, reward_code: reward.code, reward_id: reward.id }
+        }, { idempotencyKey: `cavero:reward-record:${session.id}:v1` });
+      }
+      console.info('CAVERO paid order:', JSON.stringify({ session: session.id, order: session.metadata.order_reference, event: event.id }));
     } else if (['checkout.session.async_payment_failed', 'checkout.session.expired'].includes(event.type)) {
       console.info('CAVERO checkout not paid:', JSON.stringify({ session: session.id, event: event.type }));
     }
