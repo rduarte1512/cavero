@@ -50,6 +50,7 @@
     const f=heroSlides[heroIndex];
     const v=heroVariant(f);
     const img=document.getElementById('premiumHeroImage');
+    const hero=document.getElementById('premiumHero');
     const title=document.getElementById('premiumHeroTitle');
     const kicker=document.getElementById('premiumHeroKicker');
     const sub=document.getElementById('premiumHeroSub');
@@ -59,8 +60,10 @@
 
     if(animate) img.classList.add('is-changing');
     setTimeout(()=>{
-      img.src=f.cleanImage || v.image;
+      const src=f.cleanImage || v.image;
+      img.src=src;
       img.alt=f.name;
+      if(hero) hero.style.setProperty('--hero-backdrop', `url("${src}")`);
       title.textContent=f.name;
       kicker.textContent=(heroCopy[f.key]||{}).kicker || 'CAVERO WATCHES';
       sub.textContent=(heroCopy[f.key]||{}).line || f.subtitle;
