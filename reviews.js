@@ -24,7 +24,18 @@
       {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Surpreendeu-me pelo preço',text:'Gostei bastante do acabamento e do estilo mais desportivo. Pelo preço, fiquei mesmo surpreendido com o aspeto do relógio.',photo:'',date:''},
       {name:'Cliente CAVERO',variant:'CAVERO Ocean',rating:5,verified:true,title:'Simples mas com personalidade',text:'Escolhi o Ocean porque queria algo simples mas com personalidade. Ficou mesmo bem no pulso e já me perguntaram várias vezes onde o comprei.',photo:'',date:''}
     ],
-    velocity: [],
+    velocity: [
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:5,verified:true,title:'Desportivo e elegante',text:'O Velocity tem um visual mesmo desportivo e elegante ao mesmo tempo. Os submostradores dão-lhe muita personalidade e fica excelente no pulso.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:4,verified:true,title:'Ao vivo parece ainda mais cuidado',text:'Foi o design que me convenceu logo à primeira. Ao vivo parece ainda mais cuidado e tem aquele aspeto de relógio muito mais caro.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:5,verified:true,title:'Cronógrafo moderno para todos os dias',text:'Queria um cronógrafo moderno para usar todos os dias e o Velocity encaixou perfeitamente. É confortável e combina muito bem com roupa casual.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:5,verified:true,title:'Presença sem exagerar',text:'O relógio tem bastante presença sem ser exagerado. Os detalhes do mostrador ficaram mesmo bem conseguidos.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:5,verified:true,title:'Estilo muito versátil',text:'Uso-o tanto durante a semana como ao fim de semana. Tem um estilo versátil e dá sempre um toque mais composto ao look.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:4,verified:true,title:'Acabamento bastante premium',text:'Fiquei surpreendido com o acabamento quando chegou. O conjunto da bracelete com o mostrador dá-lhe um ar bastante premium.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:5,verified:true,title:'Uma ótima escolha',text:'O Velocity foi uma ótima escolha. É moderno, bonito e nota-se bastante qualidade no design.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:5,verified:true,title:'Os submostradores fazem a diferença',text:'Gosto especialmente dos três submostradores. Dão ao relógio um estilo mais técnico e desportivo que fica mesmo muito bem.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:4,verified:true,title:'No pulso ainda fica melhor',text:'Nas fotografias já me tinha chamado a atenção, mas no pulso ainda fica melhor. Recebi vários elogios desde que comecei a usá-lo.',photo:'',date:''},
+      {name:'Cliente CAVERO',variant:'CAVERO Velocity',rating:5,verified:true,title:'Exatamente o que procurava',text:'Era exatamente o tipo de relógio que procurava: desportivo, elegante e fácil de combinar. Estou muito satisfeito com a compra.',photo:'',date:''}
+    ],
     prestige: [
       {name:'Cliente CAVERO',variant:'CAVERO Prestige',rating:5,verified:true,title:'Aspeto de gama superior',text:'O Prestige tem um aspeto muito elegante e no pulso fica ainda melhor. Dá mesmo a sensação de ser um relógio de gama superior.',photo:'',date:''},
       {name:'Cliente CAVERO',variant:'CAVERO Prestige',rating:5,verified:true,title:'Discreto, mas com presença',text:'Gostei bastante do acabamento metálico e do mostrador. É um relógio discreto, mas com presença suficiente para se notar.',photo:'',date:''},
