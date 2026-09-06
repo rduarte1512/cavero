@@ -21,6 +21,22 @@ function updateFeaturedSectionCopy(){
 updateFeaturedSectionCopy();
 document.addEventListener('DOMContentLoaded', updateFeaturedSectionCopy, { once:true });
 
+// Premium magnifying-glass search beside the cart.
+if (!document.querySelector('link[data-header-search-css]')) {
+  const searchCss = document.createElement('link');
+  searchCss.rel = 'stylesheet';
+  searchCss.href = '/header-search.css?v=1';
+  searchCss.dataset.headerSearchCss = 'true';
+  document.head.appendChild(searchCss);
+}
+if (!document.querySelector('script[data-header-search-js]')) {
+  const searchScript = document.createElement('script');
+  searchScript.src = '/header-search.js?v=1';
+  searchScript.async = false;
+  searchScript.dataset.headerSearchJs = 'true';
+  document.body.appendChild(searchScript);
+}
+
 // Load the CAVERO bracelet gift experience without changing the base page bundle order.
 if (!document.querySelector('link[data-bracelet-gift-css]')) {
   const giftCss = document.createElement('link');
