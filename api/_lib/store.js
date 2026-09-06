@@ -24,23 +24,23 @@ export function cents(value) {
   return Math.round(value * 100);
 }
 export function resolveCart(input) {
-  if (!Array.isArray(input) || !input.length || input.length > 20) throw new Error('Carrinho inválido.');
+  if (!Array.isArray(input) || !input.length || input.length > 20) throw invalid('Carrinho inválido.');
   const merged = new Map();
   for (const row of input) {
-    if (!row || typeof row.id !== 'string' || !/^(chronos|ocean|velocity|prestige|apex):\d+$/.test(row.id)) throw new Error('Produto inválido.');
-    if (!Number.isSafeInteger(row.qty) || row.qty < 1 || row.qty > 10) throw new Error('Quantidade inválida.');
+    if (!row || typeof row.id !== 'string' || !/^(chronos|ocean|velocity|prestige|apex):\d+$/.test(row.id)) throw invalid('Produto inválido.');
+    if (!Number.isSafeInteger(row.qty) || row.qty < 1 || row.qty > 10) throw invalid('Quantidade inválida.');
     const product = catalog.get(row.id);
-    if (!product) throw new Error('O produto selecionado já não está disponível.');
+    if (!product) throw invalid('O produto selecionado já não está disponível.');
     merged.set(row.id, (merged.get(row.id) || 0) + row.qty);
   }
   const items = [...merged].map(([id, qty]) => {
-    if (qty > 10) throw new Error('Quantidade máxima por acabamento: 10.');
+    if (qty > 10) throw invalid('Quantidade máxima por acabamento: 10.');
     return { ...catalog.get(id), qty };
   });
-  if (items.reduce((sum, item) => sum + item.qty, 0) > 20) throw new Error('Máximo de 20 relógios por encomenda.');
+  if (items.reduce((sum, item) => sum + item.qty, 0) > 20) throw invalid('Máximo de 20 relógios por encomenda.');
   const subtotal = items.reduce((sum, item) => sum + item.unitAmount * item.qty, 0);
   const compareTotal = items.reduce((sum, item) => sum + Math.max(item.unitAmount, item.compareAt) * item.qty, 0);
-  if (subtotal <= 0 || subtotal > 1000000) throw new Error('Total da encomenda inválido.');
+  if (subtotal <= 0 || subtotal > 1000000) throw invalid('Total da encomenda inválido.');
   return { items, subtotal, compareTotal, savings: Math.max(0, compareTotal - subtotal) };
 }
 export function cartFingerprint(items, promotionCode = '') {
@@ -85,3 +85,16 @@ export function fail(res, error) {
 }
 export function invalid(message) { return Object.assign(new Error(message), { status: 400 }); }
 export const gift = { id: 'bracelet-gift', name: 'Pulseira CAVERO', unitAmount: 0, qty: 1 };
+
+export async function assertStoreAccount(stripe) {
+  const expected = process.env.CAVERO_STRIPE_ACCOUNT_ID;
+  if (!expected || !/^acct_[A-Za-z0-9]+$/.test(expected)) throw new Error('Configura o ID da conta Stripe exclusiva da CAVERO.');
+  const account = await stripe.accounts.retrieve();
+  if (account.id !== expected) throw new Error('As chaves Stripe não pertencem à conta CAVERO configurada.');
+  if (process.env.CAVERO_STRIPE_MODE === 'live' && account.charges_enabled !== true) throw new Error('A conta Stripe ainda não está autorizada a receber pagamentos.');
+  if (process.env.CAVERO_CHECKOUT_ENABLED !== 'true') throw new Error('O checkout ainda não foi ativado pelo proprietário da loja.');
+  if (!process.env.STRIPE_WEBHOOK_SECRET?.startsWith('whsec_')) throw new Error('O webhook Stripe ainda não está configurado.');
+  publicKey();
+  publicOrigin();
+  return account;
+}
