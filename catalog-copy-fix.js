@@ -13,14 +13,29 @@ updateCart();
 if (!document.querySelector('link[data-bracelet-gift-css]')) {
   const giftCss = document.createElement('link');
   giftCss.rel = 'stylesheet';
-  giftCss.href = '/bracelet-gift.css?v=1';
+  giftCss.href = '/bracelet-gift.css?v=2';
   giftCss.dataset.braceletGiftCss = 'true';
   document.head.appendChild(giftCss);
 }
-if (!document.querySelector('script[data-bracelet-gift-js]')) {
+
+function loadBraceletGiftUI(){
+  if (document.querySelector('script[data-bracelet-gift-js]')) return;
   const giftScript = document.createElement('script');
-  giftScript.src = '/bracelet-gift.js?v=1';
+  giftScript.src = '/bracelet-gift.js?v=2';
   giftScript.async = false;
   giftScript.dataset.braceletGiftJs = 'true';
   document.body.appendChild(giftScript);
+}
+
+if (window.CAVERO_BRACELET_IMAGE) {
+  loadBraceletGiftUI();
+} else if (!document.querySelector('script[data-bracelet-image-data]')) {
+  const imageDataScript = document.createElement('script');
+  imageDataScript.src = '/bracelet-gift-image-data.js?v=2';
+  imageDataScript.async = false;
+  imageDataScript.dataset.braceletImageData = 'true';
+  imageDataScript.onload = loadBraceletGiftUI;
+  document.body.appendChild(imageDataScript);
+} else {
+  window.addEventListener('load', loadBraceletGiftUI, { once:true });
 }
