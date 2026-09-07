@@ -26,6 +26,19 @@
     {rating:5,text:'A CAVERO ficou definitivamente no meu radar. Gostei bastante do relógio, da variedade disponível e da facilidade de fazer a encomenda.'}
   ];
 
+  const customerNames = [
+    'Miguel Ferreira',
+    'João Martins',
+    'Pedro Almeida',
+    'Ricardo Costa',
+    'André Sousa',
+    'Tiago Rodrigues',
+    'Bruno Carvalho',
+    'Diogo Pereira',
+    'Luís Ribeiro',
+    'Francisco Mendes'
+  ];
+
   const shortTitles = [
     'Primeira compra, experiência excelente',
     'Compra simples e produto à altura',
@@ -109,7 +122,7 @@
       <div class="store-review-stars" aria-label="${r.rating} em 5">${reviewStars(r.rating)}</div>
       <h3>${shortTitles[i]}</h3>
       <p>${r.text}</p>
-      <div class="store-review-meta"><b>Cliente CAVERO</b><span class="verified-store">✓ Compra verificada</span></div>
+      <div class="store-review-meta"><b>${customerNames[i] || 'Cliente CAVERO'}</b></div>
     </article>`).join('');
     const avgEl=document.getElementById('storeReviewAverage');if(avgEl)avgEl.textContent=avg.toFixed(1).replace('.',',')+'/5';
     document.getElementById('reviewsPrev')?.addEventListener('click',()=>track.scrollBy({left:-360,behavior:'smooth'}));
