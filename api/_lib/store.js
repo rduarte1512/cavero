@@ -65,10 +65,12 @@ export function publicKey() {
   return key;
 }
 export function publicOrigin() {
-  const origin = process.env.CAVERO_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://cavero-three.vercel.app');
+  const origin = process.env.CAVERO_SITE_URL?.trim() || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://caverowatches.vercel.app');
   if (!origin) throw new Error('CAVERO_SITE_URL não configurado.');
   const url = new URL(origin);
   if (url.protocol !== 'https:' && !(process.env.NODE_ENV !== 'production' && url.hostname === 'localhost')) throw new Error('URL do site inválido.');
+  // Migrate the previous production address even when its environment value is stale.
+  if (url.origin === 'https://cavero-three.vercel.app') return 'https://caverowatches.vercel.app';
   return url.origin;
 }
 export function requestOrigin(req) {
