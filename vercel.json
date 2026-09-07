@@ -1,27 +1,30 @@
 {
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "functions": {
     "api/*.js": { "includeFiles": "data.js" }
   },
-  "rewrites": [
-    { "source": "/catalogo", "destination": "/index.html" },
-    { "source": "/pesquisar", "destination": "/index.html" },
-    { "source": "/sobre-nos", "destination": "/index.html" },
-    { "source": "/o-nosso-legado-a-nossa-visao", "destination": "/index.html" },
-    { "source": "/porque-a-loja-oficial-cavero-watches", "destination": "/index.html" },
-    { "source": "/politica-de-privacidade", "destination": "/index.html" },
-    { "source": "/politica-de-devolucoes", "destination": "/index.html" },
-    { "source": "/aviso-legal", "destination": "/index.html" },
-    { "source": "/politica-de-envio", "destination": "/index.html" },
-    { "source": "/termos-de-servico", "destination": "/index.html" },
-    { "source": "/cavero-chronos-ice", "destination": "/index.html" },
-    { "source": "/cavero-ocean", "destination": "/index.html" },
-    { "source": "/cavero-velocity", "destination": "/index.html" },
-    { "source": "/cavero-prestige", "destination": "/index.html" },
-    { "source": "/cavero-apex", "destination": "/index.html" },
-    { "source": "/checkout", "destination": "/index.html" },
-    { "source": "/checkout/confirmacao", "destination": "/index.html" }
-  ],
   "headers": [
-    { "source": "/api/(.*)", "headers": [ { "key": "Cache-Control", "value": "no-store" } ] }
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        { "key": "X-Robots-Tag", "value": "noindex" }
+      ]
+    },
+    {
+      "source": "/checkout/:path*",
+      "headers": [ { "key": "X-Robots-Tag", "value": "noindex, nofollow" } ]
+    },
+    {
+      "source": "/pesquisar",
+      "headers": [ { "key": "X-Robots-Tag", "value": "noindex, follow" } ]
+    },
+    {
+      "source": "/404",
+      "headers": [ { "key": "X-Robots-Tag", "value": "noindex, follow" } ]
+    }
   ]
 }
