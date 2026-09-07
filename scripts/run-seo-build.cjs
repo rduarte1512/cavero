@@ -24,3 +24,4 @@ generator.filename = filename;
 generator.paths = Module._nodeModulePaths(path.dirname(filename));
 generator._compile(source.replace(oldContext, safeContext), filename);
 require('./finalize-seo.cjs');
+require('./expand-seo.cjs');

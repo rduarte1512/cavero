@@ -100,7 +100,7 @@
     }));
     view.querySelector('#catalogGrid')?.addEventListener('click',event=>{
       const card = event.target.closest('[data-catalog-product]');
-      if (!card) return;
+      if (!card || event.target.closest('a[href]')) return;
       window.openProduct?.(card.dataset.catalogProduct);
     });
 
@@ -124,7 +124,7 @@
         <p class="catalog-card-desc">${family.desc || 'Descobre este modelo CAVERO e escolhe o acabamento que mais combina contigo.'}</p>
         <div class="catalog-card-foot">
           <div class="catalog-price"><small>Desde</small><strong>${moneyCatalog(min.price)}</strong>${bestCompare?`<s>${moneyCatalog(bestCompare)}</s>`:''}</div>
-          <button class="catalog-card-action" type="button">Ver modelo →</button>
+          <a class="catalog-card-action" href="${PRODUCT_PATHS[family.key]}">Ver modelo →</a>
         </div>
       </div>
     </article>`;
@@ -277,7 +277,7 @@
 
   document.addEventListener('click',event=>{
     const link=event.target.closest('a[href]');
-    if(!link) return;
+    if(!link || event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target==='_blank') return;
     const href=normalizePath(link.getAttribute('href')||'');
     if(href===CATALOG_PATH){event.preventDefault();window.openCatalog();return}
     const siteKey=SITE_ROUTE_TO_KEY[href];
@@ -295,7 +295,7 @@
         hideCatalog();
         window.CAVERO_showSitePageBase(siteKey);
         setSiteMeta(siteKey);
-        history.replaceState({view:'site-page',siteKey},'',path);
+        history.replaceState({view:'site-page',siteKey},'',path + window.location.search);
       } else if (path === CATALOG_PATH) {
         showCatalogBase();
         setCatalogMeta();
@@ -321,3 +321,4 @@
   window.addEventListener('popstate', renderCurrentRoute);
   renderCurrentRoute();
 })();
+

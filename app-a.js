@@ -71,7 +71,7 @@ function renderFeatured(){
     const f=familyMap.get(key),v=cleanVariant(f,f.defaultVariant);
     return `<article class="featured" onclick="openProduct('${f.key}')">
       <div class="media"><span class="sale-badge">-${discountPct(v)}%</span><img src="${v.image}" alt="${f.name} ${v.name}" loading="lazy"></div>
-      <div class="body"><p>${f.variants.length} acabamentos disponíveis</p><h3>${f.name}</h3>${priceBlock(v,true)}<button class="mini">Explorar modelo →</button></div>
+      <div class="body"><p>${f.variants.length} acabamentos disponíveis</p><h3><a href="/${f.key==='chronos'?'cavero-chronos-ice':'cavero-'+f.key}" onclick="event.stopPropagation()">${f.name}</a></h3>${priceBlock(v,true)}<button class="mini">Explorar modelo →</button></div>
     </article>`;
   }).join('');
 }
@@ -82,7 +82,7 @@ function renderProducts(){
     const v=cleanVariant(f,f.defaultVariant),min=minVariant(f);
     return `<article class="product family-card" onclick="openProduct('${f.key}')">
       <div class="product-media"><span class="tag">${f.variants.length} VARIANTES</span><span class="sale-badge">-${discountPct(v)}%</span><img src="${v.image}" alt="${f.name} ${v.name}" loading="lazy"></div>
-      <div class="info"><div class="variant">${f.subtitle}</div><h3>${f.name}</h3>
+      <div class="info"><div class="variant">${f.subtitle}</div><h3><a href="/${f.key==='chronos'?'cavero-chronos-ice':'cavero-'+f.key}" onclick="event.stopPropagation()">${f.name}</a></h3>
       <div class="family-swatches">${f.variants.slice(0,7).map(x=>`<span class="variant-colors">${swatches(x.name)}</span>`).join('')}${f.variants.length>7?`<span class="more-variants">+${f.variants.length-7}</span>`:''}</div>
       <div class="info-foot"><div><small class="from-label">Desde</small>${priceBlock(min,true)}</div><button class="mini">Ver modelo →</button></div></div>
     </article>`;
@@ -180,3 +180,4 @@ window.openLightbox=src=>{
   if(!lb){lb=document.createElement('div');lb.id='imageLightbox';lb.className='image-lightbox';lb.innerHTML='<button class="lightbox-close" aria-label="Fechar">×</button><img alt="Imagem ampliada">';document.body.appendChild(lb);lb.onclick=e=>{if(e.target===lb||e.target.classList.contains('lightbox-close'))lb.classList.remove('open')}}
   lb.querySelector('img').src=src;lb.classList.add('open');
 };
+
