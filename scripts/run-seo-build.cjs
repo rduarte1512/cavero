@@ -26,3 +26,4 @@ generator._compile(source.replace(oldContext, safeContext), filename);
 require('./finalize-seo.cjs');
 require('./expand-seo.cjs');
 require('./refine-home-intro.cjs').apply();
+require('./add-instagram-section.cjs').apply();
