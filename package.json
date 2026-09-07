@@ -3,9 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": { "node": "24.x" },
   "scripts": {
-    "build": "node scripts/build-seo.cjs && node scripts/finalize-seo.cjs",
+    "build": "node scripts/run-seo-build.cjs",
     "test": "node --test"
   },
   "dependencies": {
