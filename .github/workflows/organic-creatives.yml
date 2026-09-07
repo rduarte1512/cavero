@@ -1,0 +1,52 @@
+name: CAVERO organic creatives
+
+on:
+  push:
+    branches:
+      - creative/organic-real-products
+    paths:
+      - marketing/organic-creatives/generate.py
+      - .github/workflows/organic-creatives.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image dependencies
+        run: python -m pip install --disable-pip-version-check pillow requests
+      - name: Render real catalog photographs
+        run: python marketing/organic-creatives/generate.py
+      - name: Verify image and video files
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from PIL import Image
+          root = Path('marketing/organic-creatives/output')
+          manifest = json.loads((root/'manifest.json').read_text())
+          for name in manifest['files']:
+              path = root/name
+              assert path.is_file() and path.stat().st_size > 1000, name
+              if path.suffix == '.png':
+                  with Image.open(path) as im:
+                      im.verify()
+                  print('VERIFIED', name)
+          assert (root/'cavero-organic-real-products.zip').is_file()
+          print('All generated assets verified.')
+          PY
+      - name: Upload finished creatives
+        uses: actions/upload-artifact@v4
+        with:
+          name: cavero-organic-real-products
+          path: marketing/organic-creatives/output/
+          retention-days: 30
+          if-no-files-found: error
