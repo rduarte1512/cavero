@@ -16,7 +16,6 @@ for (const file of ['data.js','remove-royale.js','clean-images.js']) vm.runInCon
 const families = vm.runInContext('families',context);
 const defaults = Object.fromEntries(families.map(f => [f.key, f.defaultVariant || 0]));
 const url = p => origin + p;
-const byPath = new Map(routes.map(r => [r.pathname,r]));
 const products = routes.filter(r => r.type === 'product');
 const guide = routes.find(r => r.pathname === '/guias/como-escolher-um-relogio');
 const faq = [
@@ -29,7 +28,7 @@ for (const r of routes) {
   r.noindex = preview;
   const graph = r.schema['@graph'];
   const website = graph.find(x => x['@type'] === 'WebSite');
-  if (website) delete website.potentialAction; // Google retired the sitelinks search box.
+  if (website) delete website.potentialAction;
   if (r.type === 'product') {
     const group = graph.find(x => x['@type'] === 'ProductGroup');
     if (!group) throw Error('Missing ProductGroup: ' + r.pathname);
@@ -53,39 +52,41 @@ for (const r of routes) {
     const page = graph.find(x => x['@type'] === 'WebPage');
     if (page) page.mainEntity = {'@type':'ItemList',itemListElement:products.map((p,i)=>({'@type':'ListItem',position:i+1,name:p.title,url:url(p.pathname)}))};
   }
-  if (r === guide) {
-    graph.push({'@type':'FAQPage','@id':url(r.pathname)+'#faq',mainEntity:faq.map(([question,answer])=>({'@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}}))});
-  }
+  if (r === guide) graph.push({'@type':'FAQPage','@id':url(r.pathname)+'#faq',mainEntity:faq.map(([question,answer])=>({'@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}}))});
 }
-const privatePages = [
+for (const [pathname,title] of [
   ['/checkout','Checkout | CAVERO Watches'],
   ['/checkout/confirmacao','Confirmação de encomenda | CAVERO Watches'],
   ['/pesquisar','Pesquisar relógios | CAVERO Watches']
-];
-for (const [pathname,title] of privatePages) {
-  const r = {...routes[0],pathname,title,description:title, noindex:true, schema:{'@context':'https://schema.org','@graph':[{'@type':'WebPage',url:url(pathname),name:title,inLanguage:'pt-PT'}]}};
-  routes.push(r); byPath.set(pathname,r);
-}
-function tag(html, attr, key, value) {
-  const re = new RegExp('<meta\\s+'+attr+'="'+key.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'"[^>]*>','i');
-  const markup = '<meta '+attr+'="'+key+'" content="'+esc(value)+'">';
-  return re.test(html) ? html.replace(re,markup) : html.replace('</head>',markup+'\n</head>');
+]) {
+  routes.push({...routes[0],pathname,title,description:title,noindex:true,schema:{'@context':'https://schema.org','@graph':[{'@type':'WebPage',url:url(pathname),name:title,inLanguage:'pt-PT'}]}});
 }
 function head(html,r) {
-  html = html.replace(/<title>[\s\S]*?<\/title>/i,'<title>'+esc(r.title)+'</title>');
-  html = tag(html,'name','description',r.description);
-  html = tag(html,'name','robots',r.noindex?'noindex,follow':'index,follow,max-image-preview:large');
-  html = tag(html,'property','og:title',r.title);
-  html = tag(html,'property','og:description',r.description);
-  html = tag(html,'property','og:url',url(r.pathname));
-  html = tag(html,'property','og:type',r.type==='product'?'product':'website');
-  html = tag(html,'property','og:image',r.image);
-  html = tag(html,'name','twitter:title',r.title);
-  html = tag(html,'name','twitter:description',r.description);
-  html = tag(html,'name','twitter:image',r.image);
-  html = html.replace(/<link\s+rel="canonical"[^>]*>/i,'<link rel="canonical" href="'+esc(url(r.pathname))+'">');
-  html = html.replace(/<script\s+type="application\/ld\+json"\s+id="cavero-structured-data">[\s\S]*?<\/script>/i,'<script type="application/ld+json" id="cavero-structured-data">'+safeJSON(r.schema)+'</script>');
-  return html;
+  html = html.replace(/<title>[\s\S]*?<\/title>/gi,'');
+  html = html.replace(/<meta\s+(?:name|property)="(?:description|robots|og:[^"]+|twitter:[^"]+|product:price:[^"]+)"[^>]*>/gi,'');
+  html = html.replace(/<link\s+rel="canonical"[^>]*>/gi,'');
+  html = html.replace(/<script\s+type="application\/ld\+json"\s+id="cavero-structured-data">[\s\S]*?<\/script>/gi,'');
+  const meta = (attr,key,value) => '<meta '+attr+'="'+key+'" content="'+esc(value)+'">';
+  const tags = [
+    '<title>'+esc(r.title)+'</title>',
+    meta('name','description',r.description),
+    meta('name','robots',r.noindex?'noindex,follow':'index,follow,max-image-preview:large'),
+    meta('property','og:locale','pt_PT'),meta('property','og:site_name','CAVERO Watches'),
+    meta('property','og:type',r.type==='product'?'product':'website'),
+    meta('property','og:title',r.title),meta('property','og:description',r.description),
+    meta('property','og:url',url(r.pathname)),meta('property','og:image',r.image),
+    meta('property','og:image:alt',r.type==='product'?r.title:'Coleção CAVERO Watches'),
+    meta('name','twitter:card','summary_large_image'),meta('name','twitter:title',r.title),
+    meta('name','twitter:description',r.description),meta('name','twitter:image',r.image)
+  ];
+  if (!r.noCanonical) tags.push('<link rel="canonical" href="'+esc(url(r.pathname))+'">');
+  if (r.type==='product') {
+    const group=r.schema['@graph'].find(x=>x['@type']==='ProductGroup');
+    const variant=group?.hasVariant?.[r.defaultVariant||0];
+    if (variant) tags.push(meta('property','product:price:amount',variant.offers.price),meta('property','product:price:currency','EUR'));
+  }
+  if (r.schema) tags.push('<script type="application/ld+json" id="cavero-structured-data">'+safeJSON(r.schema)+'</script>');
+  return html.replace('</head>',tags.join('\n')+'\n</head>');
 }
 const homeHeading = 'Relógios masculinos com presença. CAVERO Watches.';
 const intro = isHome => '<section class="seo-home-intro"><'+(isHome?'h1':'h2')+' id="homeSeoHeading">'+homeHeading+'</'+(isHome?'h1':'h2')+'><p>Descobre relógios clássicos, cronógrafos e modelos desportivos. Explora a coleção CAVERO, compara acabamentos e encontra o relógio que combina contigo.</p></section>';
@@ -103,41 +104,51 @@ function common(html,r) {
   html = html.replace(/<a href="#destaques">Destaques<\/a>/,'<a href="/#destaques">Destaques</a>')
     .replace(/<a href="#sobre">Sobre nós<\/a>/,'<a href="/sobre-nos">Sobre nós</a>')
     .replace(/<a href="#faq">Perguntas frequentes<\/a>/,'<a href="/#faq">Perguntas frequentes</a>');
-  html = html.replace(/(<\/footer>)/i,editorial+'\n$1');
+  html = html.replace(/<\/footer>/gi,editorial+'\n</footer>');
   html = html.replace('<script src="/seo-client.js" defer></script>','<script src="/seo-data.js" defer></script>\n<script src="/seo-client.js" defer></script>');
   return assets(html);
 }
-function standalone(r, body) {
-  const base = '<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title></title><link rel="canonical" href="'+url(r.pathname)+'"><link rel="stylesheet" href="/seo.css"></head><body><div id="seo-prerender">'+body+'</div></body></html>';
+function standalone(r,body) {
+  const base='<!doctype html><html lang="pt-PT"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#11110f"><link rel="stylesheet" href="/seo.css"></head><body><div id="seo-prerender">'+body+'</div></body></html>';
   return head(base,r);
 }
 function sourceFile(pathname) { return pathname==='/'?'index.html':pathname.slice(1)+'/index.html'; }
+function flatFile(pathname) { return pathname==='/'?'index.html':pathname.slice(1)+'.html'; }
+const output = [];
 for (const r of routes) {
-  const file = sourceFile(r.pathname);
-  let html = read(file);
-  if (r === guide) {
-    const start = html.indexOf('<div id="seo-prerender">');
-    const end = html.indexOf('<div class="top">',start);
+  let html=read(sourceFile(r.pathname));
+  if (r===guide) {
+    const start=html.indexOf('<div id="seo-prerender">');
+    const end=html.indexOf('<div class="top">',start);
     if (start<0 || end<0) throw Error('Guide prerender missing');
-    let body = html.slice(start,end).trim().replace(/^<div id="seo-prerender">/,'').replace(/<\/div>\s*$/,'');
-    const faqBody = '<section id="perguntas-frequentes"><h2>Perguntas frequentes sobre relógios</h2>'+faq.map(([q,a])=>'<details><summary>'+esc(q)+'</summary><p>'+esc(a)+'</p></details>').join('')+'</section>';
-    body = body.replace('</main>',faqBody+'</main>');
-    body = body.replace(/(<\/footer>)/i,editorial+'\n$1');
-    html = standalone(r,body);
+    let body=html.slice(start,end).trim().replace(/^<div id="seo-prerender">/,'').replace(/<\/div>\s*$/,'');
+    const faqBody='<section id="perguntas-frequentes"><h2>Perguntas frequentes sobre relógios</h2>'+faq.map(([q,a])=>'<details><summary>'+esc(q)+'</summary><p>'+esc(a)+'</p></details>').join('')+'</section>';
+    body=body.replace('</main>',faqBody+'</main>').replace(/<\/footer>/gi,editorial+'\n</footer>');
+    html=standalone(r,body);
   } else {
-    html = common(html,r);
-    if (r.pathname === '/') {
-      const cards = products.map(p=>'<a class="seo-home-card" href="'+p.pathname+'"><img src="'+esc(p.image)+'" alt="'+esc(p.title)+'" loading="lazy"><span>'+esc(p.title)+'</span></a>').join('');
-      html = html.replace('<div class="featured-grid" id="featuredGrid"></div>','<div class="featured-grid" id="featuredGrid">'+cards+'</div>');
+    html=common(html,r);
+    if (r.pathname==='/') {
+      const cards=products.map(p=>'<a class="seo-home-card" href="'+p.pathname+'"><img src="'+esc(p.image)+'" alt="'+esc(p.title)+'" loading="lazy"><span>'+esc(p.title)+'</span></a>').join('');
+      html=html.replace('<div class="featured-grid" id="featuredGrid"></div>','<div class="featured-grid" id="featuredGrid">'+cards+'</div>');
     }
   }
-  write(file,html);
+  output.push([flatFile(r.pathname),html]);
 }
-const errorRoute = {pathname:'/404',title:'Página não encontrada | CAVERO Watches',description:'Encontra o relógio que procuras na coleção CAVERO Watches.',image:routes[0].image,type:'website',noindex:true,schema:{'@context':'https://schema.org','@type':'WebPage',name:'Página não encontrada'}};
+// Preserve the query-string variant when the existing router restores history.
+const routingFile=path.join(out,'product-routing.js');
+let routing=fs.readFileSync(routingFile,'utf8');
+const oldReplace="history.replaceState({ view: 'product', productKey: key }, '', path);";
+if (!routing.includes(oldReplace)) throw Error('Product route history contract changed');
+routing=routing.replace(oldReplace,"history.replaceState({ view: 'product', productKey: key }, '', path + window.location.search);");
+fs.writeFileSync(routingFile,routing);
+// Flat HTML works with Vercel cleanUrls, removing duplicate /index.html routes.
+for (const pathname of routes.map(r=>r.pathname).filter(p=>p!=='/').sort((a,b)=>b.length-a.length)) fs.rmSync(path.join(out,pathname.slice(1)),{recursive:true,force:true});
+for (const [file,html] of output) write(file,html);
+const errorRoute={pathname:'/404',title:'Página não encontrada | CAVERO Watches',description:'Encontra o relógio que procuras na coleção CAVERO Watches.',image:routes[0].image,type:'website',noindex:true,noCanonical:true,schema:null};
 write('404.html',standalone(errorRoute,'<header class="seo-header"><a class="seo-brand" href="/">CAVERO <small>WATCHES</small></a><nav><a href="/catalogo">Catálogo</a><a href="/sobre-nos">Sobre nós</a></nav></header><main><p class="seo-kicker">ERRO 404</p><h1>Esta página não foi encontrada.</h1><p>O endereço pode ter sido alterado ou já não estar disponível. Pesquisa um modelo ou continua a explorar a coleção CAVERO.</p><form action="/pesquisar" method="get" class="seo-search-form"><label for="seo404search">Pesquisar na loja</label><div><input id="seo404search" name="q" type="search" placeholder="Modelo, cor ou acabamento" required><button type="submit">Pesquisar</button></div></form><p><a class="seo-action" href="/catalogo">Ver catálogo</a> <a href="/">Voltar à página inicial</a></p></main><footer class="seo-footer"><a href="/">CAVERO Watches</a><p>Relógios para diferentes estilos.</p></footer>'));
 write('seo-manifest.json',safeJSON(routes));
 write('seo-data.js','window.CAVERO_SEO='+safeJSON({origin,routes,defaults})+';');
-const listed = routes.filter(r=>!r.noindex);
+const listed=routes.filter(r=>!r.noindex);
 write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+listed.map(r=>'  <url><loc>'+esc(url(r.pathname))+'</loc></url>').join('\n')+'\n</urlset>\n');
 write('robots.txt',preview?'User-agent: *\nDisallow: /\n':'User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /checkout\nDisallow: /pesquisar\nSitemap: '+url('/sitemap.xml')+'\n');
 fs.appendFileSync(path.join(out,'seo.css'),'\n.seo-home-intro{max-width:1160px;margin:0 auto;padding:28px 24px 14px}.seo-home-intro h1,.seo-home-intro h2{font-size:clamp(25px,3vw,38px);line-height:1.2;margin:0 0 12px}.seo-home-intro p{max-width:70ch;line-height:1.6;margin:0}.seo-home-card{display:block;text-decoration:none;color:inherit}.seo-home-card img{width:100%;aspect-ratio:1;object-fit:cover}.seo-home-card span{display:block;padding:12px}.seo-editorial-links{display:flex;gap:20px;flex-wrap:wrap;padding:16px 24px;font-size:13px}.seo-search-form{max-width:600px;margin:30px 0}.seo-search-form label{display:block;margin-bottom:8px}.seo-search-form>div{display:flex;gap:8px;flex-wrap:wrap}.seo-search-form input{flex:1;min-width:180px;padding:13px;border:1px solid #aaa;border-radius:4px}.seo-search-form button{padding:13px 20px;background:#24231f;color:#fff;border:0;border-radius:4px;cursor:pointer}#seo-prerender details{padding:14px 0;border-bottom:1px solid #ddd}#seo-prerender summary{cursor:pointer;font-weight:600}\n');
