@@ -1,0 +1,160 @@
+/* CAVERO image presentation — original product photographs, no content changes.
+   This stylesheet is imported by hero-visibility-fix.css, the final visual layer. */
+
+/* Product cards: a consistent image stage, independent of the source aspect ratio. */
+#destaques .featured-grid,
+#colecao .grid{align-items:stretch}
+#destaques .featured,
+#colecao .family-card{min-width:0;display:flex;flex-direction:column}
+#destaques .featured .media,
+#colecao .family-card .product-media{
+  height:auto!important;
+  min-height:0;
+  aspect-ratio:1/1.04;
+  padding:clamp(18px,2.2vw,32px)!important;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  background:#f1eee8!important;
+}
+#destaques .featured .media img,
+#colecao .family-card .product-media img{
+  display:block;
+  width:100%!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  min-width:0;
+  min-height:0;
+  padding:0!important;
+  margin:auto;
+  object-fit:contain!important;
+  object-position:center center!important;
+  transform:none!important;
+  filter:none!important;
+  transition:transform .25s ease!important;
+}
+@media(hover:hover) and (pointer:fine){
+  #destaques .featured:hover .media img,
+  #colecao .family-card:hover .product-media img{transform:scale(1.025)!important}
+}
+#destaques .featured .body,
+#colecao .family-card .info{flex:1;display:flex;flex-direction:column;min-width:0}
+#colecao .family-card .info-foot{margin-top:auto}
+#destaques .featured .media .sale-badge,
+#colecao .family-card .product-media .sale-badge{z-index:3}
+
+/* The product gallery uses one stable frame rather than a 690px crop. */
+#productView .product-page{
+  grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(24px,4vw,64px);
+  align-items:start;
+}
+#productView .gallery-column,
+#productView .detail{min-width:0}
+#productView .gallery-column{top:100px}
+#productView .gallery-wrap{
+  display:grid;
+  grid-template-columns:80px minmax(0,1fr);
+  gap:12px;
+  align-items:start;
+}
+#productView .thumb-rail{
+  max-height:min(640px,65vw);
+  gap:9px;
+  padding:2px 3px 2px 2px;
+  scrollbar-width:thin;
+}
+#productView .gallery-thumb{
+  width:76px;
+  height:76px;
+  flex:0 0 auto;
+  padding:5px;
+  border-radius:13px;
+}
+#productView .gallery-thumb img,
+#productView .variant-thumb,
+#productView .related-grid img,
+.cartitem img,.checkout-item img,.sresult img{
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#f2eee7;
+}
+#productView .gallery-thumb img{border-radius:8px}
+#productView .main-photo{
+  width:100%;
+  min-width:0;
+  min-height:0;
+  aspect-ratio:1/1;
+  border-radius:24px;
+  background:#f1eee8;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+#productView .main-photo>img{
+  display:block;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  padding:clamp(14px,2.5vw,34px);
+  margin:0;
+  filter:none!important;
+  transform:none!important;
+}
+#productView .main-photo>img.changing{opacity:.35}
+#productView .zoom-button{right:14px;bottom:14px}
+#productView .variant-thumb-wrap{flex-shrink:0}
+#productView .variant-thumb{padding:4px}
+#productView .related-grid img{background:#f1eee8;padding:18px;aspect-ratio:1/1;height:auto}
+#productView .image-lightbox img,
+.image-lightbox img{object-fit:contain!important;max-width:100%;max-height:88vh}
+
+/* Small product images must remain recognizable in cart and checkout. */
+.cartitem img,.checkout-item img,.sresult img{padding:5px}
+
+@media(max-width:1050px){
+  #productView .product-page{grid-template-columns:minmax(0,1fr);gap:26px}
+  #productView .gallery-column{position:static}
+  #productView .gallery-wrap{grid-template-columns:80px minmax(0,1fr)}
+  #productView .main-photo{max-height:680px}
+  #productView .detail{padding-top:0}
+}
+@media(max-width:680px){
+  #destaques .featured .media,
+  #colecao .family-card .product-media{aspect-ratio:1/1.04;padding:20px!important}
+  #productView{padding:20px 16px 60px}
+  #productView .product-breadcrumb{margin-bottom:16px}
+  #productView .gallery-wrap{display:flex;flex-direction:column-reverse;gap:12px}
+  #productView .main-photo{width:100%;max-height:none;aspect-ratio:1/1.05;border-radius:18px}
+  #productView .main-photo>img{padding:18px}
+  #productView .thumb-rail{
+    width:100%;max-width:100%;max-height:none;
+    display:flex;flex-direction:row;gap:8px;
+    overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    padding:2px 2px 8px;
+  }
+  #productView .gallery-thumb{width:68px;height:68px;min-width:68px;min-height:68px;scroll-snap-align:start}
+  #productView .zoom-button{right:10px;bottom:10px;padding:9px 11px}
+  #productView .variant-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #productView .variant-option{grid-template-columns:52px minmax(0,1fr);gap:7px}
+  #productView .variant-thumb-wrap{width:52px;height:52px}
+  #productView .related-grid img{height:auto;padding:12px}
+  .image-lightbox{padding:16px}
+  .image-lightbox img{max-width:100%;max-height:85vh}
+}
+@media(max-width:380px){
+  #productView .variant-list{grid-template-columns:1fr}
+  #productView .variant-option{grid-template-columns:60px minmax(0,1fr)}
+  #productView .variant-thumb-wrap{width:60px;height:60px}
+}
+@media(prefers-reduced-motion:reduce){
+  #destaques .featured .media img,
+  #colecao .family-card .product-media img,
+  #productView .main-photo>img{transition:none!important}
+}
