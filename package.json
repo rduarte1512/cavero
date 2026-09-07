@@ -5,6 +5,7 @@
   "type": "module",
   "engines": { "node": ">=20" },
   "scripts": {
+    "build": "node scripts/build-seo.cjs && node scripts/finalize-seo.cjs",
     "test": "node --test"
   },
   "dependencies": {
