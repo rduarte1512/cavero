@@ -1,0 +1,29 @@
+/* Official CAVERO Instagram invitation. All styles are scoped to this section. */
+.cavero-instagram{box-sizing:border-box;background:#f8f6f1;color:#181914;padding:clamp(56px,6vw,96px) max(20px,4vw);font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+.cavero-instagram *{box-sizing:border-box}
+.cavero-instagram-inner{max-width:1440px;margin:0 auto}
+.cavero-instagram-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:30px}
+.cavero-instagram-kicker{margin:0 0 12px;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#856d47}
+.cavero-instagram h2{margin:0;font-family:Georgia,'Times New Roman',serif;font-size:clamp(34px,4vw,58px);line-height:1.08;letter-spacing:-.04em;font-weight:400;max-width:820px}
+.cavero-instagram-description{margin:18px 0 0;color:#68645c;font-size:15px;line-height:1.75;max-width:680px}
+.cavero-instagram-open{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:13px 20px;border:1px solid #242620;border-radius:999px;background:#242620;color:#fff!important;text-decoration:none;font-size:12px;font-weight:750;white-space:nowrap;transition:background .2s ease}
+.cavero-instagram-open:hover{background:#42453c}
+.cavero-instagram-profile{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:#fff;border:1px solid #e5e1d9;border-bottom:0;border-radius:24px 24px 0 0;padding:24px clamp(20px,3vw,42px)}
+.cavero-instagram-identity{display:flex;align-items:center;gap:15px;min-width:0}
+.cavero-instagram-avatar{width:64px;height:64px;flex:0 0 64px;border-radius:50%;padding:3px;background:linear-gradient(35deg,#e6aa38,#c83a89,#754bd0)}
+.cavero-instagram-avatar img{width:100%;height:100%;object-fit:cover;border:3px solid #fff;border-radius:50%;background:#11110f}
+.cavero-instagram-name{display:block;margin:0 0 4px;font-size:17px;font-weight:800;line-height:1.3;color:#181914;text-decoration:none}
+.cavero-instagram-handle{font-size:13px;color:#77746e;overflow-wrap:anywhere}
+.cavero-instagram-profile .cavero-instagram-open{background:#161a18;border-color:#161a18}
+.cavero-instagram-gallery{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;background:#e4e0d7;border:1px solid #e5e1d9;border-radius:0 0 24px 24px;overflow:hidden}
+.cavero-instagram-tile{display:block;position:relative;aspect-ratio:1/1;min-width:0;overflow:hidden;background:#eee9e0;text-decoration:none}
+.cavero-instagram-tile img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;padding:10%;transition:transform .3s ease}
+.cavero-instagram-tile:hover img{transform:scale(1.035)}
+.cavero-instagram-tile span{position:absolute;inset:auto 0 0;padding:30px 12px 12px;background:linear-gradient(transparent,rgba(15,16,14,.65));color:#fff;font-size:12px;font-weight:750;letter-spacing:.02em}
+.cavero-instagram-note{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin:14px 0 0;color:#77736b;font-size:11px;line-height:1.6}
+.cavero-instagram-note a{color:#4a493f;text-decoration:underline;text-underline-offset:3px}
+.cavero-instagram a:focus-visible{outline:3px solid #a4834f;outline-offset:4px}
+body:has(#checkoutView:not(.hidden)) .cavero-instagram{display:none}
+@media(max-width:900px){.cavero-instagram-heading{align-items:start;flex-direction:column}.cavero-instagram-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.cavero-instagram-tile:nth-child(n+4){display:none}}
+@media(max-width:600px){.cavero-instagram{padding:56px 16px}.cavero-instagram-heading{margin-bottom:24px}.cavero-instagram h2{font-size:clamp(32px,9vw,42px)}.cavero-instagram-description{font-size:14px}.cavero-instagram-profile{padding:18px;gap:17px;align-items:flex-start}.cavero-instagram-avatar{width:52px;height:52px;flex-basis:52px}.cavero-instagram-name{font-size:15px}.cavero-instagram-handle{font-size:12px}.cavero-instagram-profile .cavero-instagram-open{width:100%}.cavero-instagram-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}.cavero-instagram-tile:nth-child(n+4){display:block}.cavero-instagram-tile:nth-child(n+5){display:none}.cavero-instagram-tile img{padding:8%}.cavero-instagram-tile span{font-size:10px;padding:22px 8px 8px}.cavero-instagram-note{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.cavero-instagram-open,.cavero-instagram-tile img{transition:none}}
