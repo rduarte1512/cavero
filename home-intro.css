@@ -1,0 +1,139 @@
+/* CAVERO homepage introduction. Scoped to the homepage only. */
+#homeView > .seo-home-intro.cavero-home-intro {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: clamp(58px, 7vw, 108px) max(24px, 4.5vw) clamp(54px, 6vw, 90px);
+  background: #f5f2eb;
+  color: #181914;
+  text-align: center;
+  overflow: hidden;
+}
+#homeView > .cavero-home-intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.92), transparent 72%);
+  pointer-events: none;
+}
+.cavero-home-intro .cavero-intro-inner {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.cavero-home-intro .cavero-intro-kicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 0 24px;
+  color: #756346;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.5;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.cavero-home-intro .cavero-intro-kicker::before,
+.cavero-home-intro .cavero-intro-kicker::after {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: #b6a58a;
+}
+#homeView > .cavero-home-intro #homeSeoHeading {
+  max-width: 950px;
+  margin: 0 auto;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(40px, 5.2vw, 76px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -.052em;
+  color: #181914;
+  text-wrap: balance;
+}
+.cavero-home-intro #homeSeoHeading span {
+  display: block;
+  color: #6b5940;
+  font-style: italic;
+  font-weight: 400;
+}
+.cavero-home-intro .cavero-intro-description {
+  max-width: 630px;
+  margin: 26px auto 0;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(14px, 1.25vw, 17px);
+  font-weight: 400;
+  line-height: 1.8;
+  color: #605e57;
+  text-wrap: pretty;
+}
+.cavero-home-intro .cavero-intro-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px 26px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+.cavero-home-intro .cavero-intro-primary,
+.cavero-home-intro .cavero-intro-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.cavero-home-intro .cavero-intro-primary {
+  padding: 14px 27px;
+  border: 1px solid #22231e;
+  border-radius: 999px;
+  background: #22231e;
+  color: #fff;
+}
+.cavero-home-intro .cavero-intro-secondary {
+  padding: 12px 0;
+  border-bottom: 1px solid #928b7e;
+  color: #34342e;
+}
+.cavero-home-intro .cavero-intro-primary:hover { background: #3d3d32; border-color: #3d3d32; }
+.cavero-home-intro .cavero-intro-secondary:hover { color: #7d633b; border-color: #7d633b; }
+.cavero-home-intro a:focus-visible { outline: 3px solid #a4834f; outline-offset: 4px; }
+.cavero-home-intro .cavero-intro-meta {
+  margin: 33px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(31,31,26,.12);
+  max-width: 520px;
+  color: #807a70;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: .13em;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
+@media (max-width: 680px) {
+  #homeView > .seo-home-intro.cavero-home-intro { padding: 54px 22px 52px; }
+  .cavero-home-intro .cavero-intro-kicker { gap: 9px; margin-bottom: 20px; font-size: 9px; letter-spacing: .15em; }
+  .cavero-home-intro .cavero-intro-kicker::before,
+  .cavero-home-intro .cavero-intro-kicker::after { width: 18px; }
+  #homeView > .cavero-home-intro #homeSeoHeading { font-size: clamp(37px, 10vw, 52px); line-height: 1.09; letter-spacing: -.045em; }
+  .cavero-home-intro .cavero-intro-description { margin-top: 21px; font-size: 14px; line-height: 1.75; }
+  .cavero-home-intro .cavero-intro-actions { margin-top: 27px; gap: 12px; }
+  .cavero-home-intro .cavero-intro-primary { width: 100%; max-width: 360px; }
+  .cavero-home-intro .cavero-intro-secondary { min-height: 42px; }
+  .cavero-home-intro .cavero-intro-meta { margin-top: 25px; padding-top: 16px; font-size: 9px; letter-spacing: .07em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cavero-home-intro .cavero-intro-primary,
+  .cavero-home-intro .cavero-intro-secondary { transition: none; }
+}
