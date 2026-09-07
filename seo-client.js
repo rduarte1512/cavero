@@ -23,7 +23,8 @@
     if (!old || old.tagName.toLowerCase()===tag) return;
     const next=document.createElement(tag);
     for (const attr of old.attributes) next.setAttribute(attr.name,attr.value);
-    next.textContent=old.textContent;
+    // Move the existing children so the editorial span survives navigation.
+    while (old.firstChild) next.appendChild(old.firstChild);
     old.replaceWith(next);
   }
   function selectedIndex(route) {
