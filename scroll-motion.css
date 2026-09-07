@@ -1,0 +1,36 @@
+/* Motion is opt-in: all content is visible without JavaScript or IntersectionObserver. */
+@media (prefers-reduced-motion: no-preference) {
+  .cavero-motion-play {
+    animation: cavero-motion-enter 680ms cubic-bezier(.22,1,.36,1) both;
+    animation-delay: var(--cavero-motion-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  @keyframes cavero-motion-enter {
+    from { opacity: 0; transform: translate3d(var(--cavero-motion-x, 0px), 22px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  @media (min-width: 769px) {
+    #homeView .premium-hero-media {
+      inset: -32px 0;
+      transform: translate3d(0, var(--cavero-hero-shift, 0px), 0);
+      will-change: transform;
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    #homeView .hero-cta,
+    #homeView .home-end-cta a,
+    #homeView .collection-tab,
+    .cavero-instagram-open {
+      transition: transform 240ms ease, box-shadow 240ms ease, background-color 240ms ease, border-color 240ms ease;
+    }
+    #homeView .hero-cta:hover,
+    #homeView .home-end-cta a:hover,
+    .cavero-instagram-open:hover { transform: translateY(-3px); }
+    #homeView .collection-tab:hover { transform: translateY(-2px); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cavero-motion-play { animation: none !important; opacity: 1 !important; transform: none !important; will-change: auto !important; }
+  #homeView .premium-hero-media { transform: none !important; will-change: auto !important; }
+  html { scroll-behavior: auto !important; }
+}
