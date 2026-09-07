@@ -29,3 +29,4 @@ require('./refine-home-intro.cjs').apply();
 require('./add-instagram-section.cjs').apply();
 require('./add-scroll-motion.cjs').apply();
 require('./add-vercel-analytics.cjs').apply();
+require('./add-google-analytics.cjs').apply();
