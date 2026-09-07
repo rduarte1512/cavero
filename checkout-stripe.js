@@ -97,31 +97,28 @@
     destroyEmbedded(); busy = false; currentSession = null;
     const serialized = JSON.stringify(items.map(i => [i.id,i.qty]));
     if (serialized !== lastCart) { requestId = crypto.randomUUID(); lastCart = serialized; }
+    const cancelled = new URLSearchParams(location.search).has('cancelled');
     navigate('/checkout');
-    shell(`<div class="cavero-checkout-grid"><div class="cavero-checkout-panel"><h2>Dados e pagamento</h2><p class="cavero-checkout-help">O pagamento é processado pela Stripe. A morada de entrega e os dados de pagamento são preenchidos no formulário seguro.</p><form id="caveroCheckoutForm"><div class="cavero-checkout-field"><label for="caveroCheckoutEmail">Email</label><input id="caveroCheckoutEmail" type="email" autocomplete="email" required placeholder="O teu email"></div><div class="cavero-checkout-field"><label for="caveroCheckoutPromo">Código de desconto (opcional)</label><input id="caveroCheckoutPromo" autocomplete="off" placeholder="Código da próxima compra"></div><p class="cavero-checkout-help">Os descontos de cada relógio já estão incluídos. Os códigos de fidelização são pessoais e não acumulam com outros códigos.</p><div id="caveroCheckoutAlert" class="cavero-checkout-alert" role="alert" hidden></div><button class="cavero-checkout-primary" id="caveroStartPayment" type="submit">Continuar para pagamento seguro →</button><div class="cavero-checkout-trust"><span>✓ Pulseira grátis</span><span>✓ Envio gratuito</span><span>✓ Pagamento Stripe</span></div><p class="cavero-checkout-legal">Ao continuar, aceitas os <a href="/termos-de-servico">Termos de Serviço</a> e a <a href="/politica-de-privacidade">Política de Privacidade</a>.</p></form></div>${orderPanel(items)}</div>`);
+    shell('<div class="cavero-checkout-panel"><form id="caveroCheckoutForm"><p>A tua encomenda inclui envio gratuito e uma pulseira de oferta.</p><div id="caveroCheckoutAlert" class="cavero-checkout-alert" role="alert" hidden></div><button class="cavero-checkout-primary" id="caveroStartPayment" type="submit">Continuar para a Stripe →</button></form></div>');
+    if (!cancelled) startPayment();
   }
   async function startPayment() {
     if (busy) return;
     busy = true;
     const button = $('#caveroStartPayment');
-    button.disabled = true; button.textContent = 'A preparar o pagamento…';
+    button.disabled = true; button.textContent = 'A abrir o pagamento seguro…';
     $('#caveroCheckoutAlert').hidden = true;
     try {
       const items = cartSnapshot();
-      const email = $('#caveroCheckoutEmail').value.trim();
-      const promotionCode = $('#caveroCheckoutPromo').value.trim();
-      if (JSON.stringify(items.map(i=>[i.id,i.qty])) !== lastCart) { requestId = crypto.randomUUID(); lastCart = JSON.stringify(items.map(i=>[i.id,i.qty])); }
-      const config = await api('/api/checkout-config');
-      await loadStripe();
-      stripe = window.Stripe(config.publishableKey);
-      const session = await api('/api/create-checkout-session', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ items:items.map(i=>({id:i.id,qty:i.qty})), email, promotionCode, requestId }) });
-      currentSession = session.sessionId;
-      const next = `<div class="cavero-checkout-grid"><div class="cavero-checkout-panel"><div class="cavero-checkout-step">PAGAMENTO SEGURO ${config.mode==='test'?'· MODO DE TESTE':''}</div><h2>Concluir pagamento</h2><p class="cavero-checkout-help">Confirma a morada, escolhe o método de pagamento e revê o total final no formulário Stripe.</p><div id="caveroStripeMount" class="cavero-checkout-payment"><div class="cavero-checkout-loading">A carregar o formulário seguro…</div></div><div id="caveroCheckoutAlert" class="cavero-checkout-alert" role="alert" hidden></div><p class="cavero-checkout-legal">Não guardamos os dados do teu cartão. O pagamento é tratado diretamente pela Stripe.</p><button type="button" class="cavero-checkout-secondary" data-cavero-action="cart">← Editar carrinho</button></div>${orderPanel(items,session)}</div>`;
-      shell(next);
-      embedded = await stripe.initEmbeddedCheckout({ clientSecret:session.clientSecret, onComplete:() => { history.replaceState({view:'cavero-checkout'},'',`/checkout/confirmacao?session_id=${encodeURIComponent(currentSession)}`); renderConfirmation(); } });
-      embedded.mount('#caveroStripeMount');
+      const session = await api('/api/create-checkout-session', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: items.map(i => ({ id: i.id, qty: i.qty })), requestId })
+      });
+      const destination = new URL(session.url);
+      if (destination.protocol !== 'https:' || destination.hostname !== 'checkout.stripe.com') throw new Error('Não foi possível abrir o pagamento Stripe.');
+      location.assign(destination.href);
     } catch (error) {
-      if (button.isConnected) { button.disabled = false; button.textContent = 'Continuar para pagamento seguro →'; }
+      button.disabled = false; button.textContent = 'Tentar novamente →';
       alert(error.message);
     } finally { busy = false; }
   }

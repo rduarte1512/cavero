@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     const stripe = getStripe();
     await assertStoreAccount(stripe);
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
-    if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw invalid('Indica um email válido.');
+    if (email && (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) throw invalid('Indica um email válido.');
     const reward = await validateReward(body.promotionCode || '', email);
     const requestId = typeof body.requestId === 'string' && /^[0-9a-f-]{36}$/i.test(body.requestId) ? body.requestId : randomUUID();
     const fingerprint = createHash('sha256').update(cartFingerprint(items, reward?.promotion.id || '') + email).digest('hex');
@@ -40,8 +40,9 @@ export default async function handler(req, res) {
       ...(reward ? { promotion_code: reward.promotion.id } : {})
     };
     const params = {
-      mode: 'payment', ui_mode: 'embedded', redirect_on_completion: 'if_required',
-      return_url: `${publicOrigin()}/checkout/confirmacao?session_id={CHECKOUT_SESSION_ID}`,
+      mode: 'payment', ui_mode: 'hosted',
+      cancel_url: `${publicOrigin()}/checkout?cancelled=1`,
+      success_url: `${publicOrigin()}/checkout/confirmacao?session_id={CHECKOUT_SESSION_ID}`,
       locale: 'pt', line_items: lineItems,
       shipping_address_collection: { allowed_countries: ['PT', 'ES'] },
       shipping_options: [{ shipping_rate_data: { type: 'fixed_amount', fixed_amount: { amount: 0, currency: 'eur' }, display_name: 'Envio gratuito', delivery_estimate: { minimum: { unit: 'day', value: 5 }, maximum: { unit: 'day', value: 13 } } } }],
@@ -54,14 +55,14 @@ export default async function handler(req, res) {
         shipping_address: { message: 'Envio gratuito. Entrega estimada de 5 a 13 dias.' },
         submit: { message: 'A pulseira de oferta está incluída no total. Os dados de pagamento são tratados pela Stripe.' }
       },
-      ...(reward ? { customer: reward.customer.id, discounts: [{ promotion_code: reward.promotion.id }] } : { customer_email: email })
+      ...(reward ? { customer: reward.customer.id, discounts: [{ promotion_code: reward.promotion.id }] } : (email ? { customer_email: email } : {}))
     };
     if (reward) delete params.customer_creation;
     const session = await stripe.checkout.sessions.create(params, {
-      idempotencyKey: `cavero:checkout:${requestId}:${fingerprint.slice(0,24)}`
+      idempotencyKey: `cavero:hosted:${requestId}:${fingerprint.slice(0,24)}`
     });
     return json(res, 200, {
-      clientSecret: session.client_secret, sessionId: session.id,
+      url: session.url, sessionId: session.id,
       orderReference: session.client_reference_id, subtotal, compareTotal, savings,
       amountTotal: session.amount_total, discountTotal: session.total_details?.amount_discount || 0,
       giftQuantity: 1, currency: 'eur'

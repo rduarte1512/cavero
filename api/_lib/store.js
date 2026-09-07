@@ -65,7 +65,7 @@ export function publicKey() {
   return key;
 }
 export function publicOrigin() {
-  const origin = process.env.CAVERO_SITE_URL;
+  const origin = process.env.CAVERO_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'https://cavero-three.vercel.app');
   if (!origin) throw new Error('CAVERO_SITE_URL não configurado.');
   const url = new URL(origin);
   if (url.protocol !== 'https:' && !(process.env.NODE_ENV !== 'production' && url.hostname === 'localhost')) throw new Error('URL do site inválido.');
@@ -97,8 +97,6 @@ export async function assertStoreAccount(stripe) {
   if (account.id !== expected) throw new Error('As chaves Stripe não pertencem à conta CAVERO configurada.');
   if (stripeMode() === 'live' && account.charges_enabled !== true) throw new Error('A conta Stripe ainda não está autorizada a receber pagamentos.');
   if (process.env.CAVERO_CHECKOUT_ENABLED !== 'true') throw new Error('O checkout ainda não foi ativado pelo proprietário da loja.');
-  if (!process.env.STRIPE_WEBHOOK_SECRET?.startsWith('whsec_')) throw new Error('O webhook Stripe ainda não está configurado.');
-  publicKey();
   publicOrigin();
   return account;
 }
