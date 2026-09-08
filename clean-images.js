@@ -7,9 +7,14 @@ const CAVERO_CLEAN_IMAGES = {
   apex: 'https://static.wixstatic.com/media/eb5ec1_d47ea3ebb9624674a14cf6a4632a33d8~mv2.jpg'
 };
 
+// Exclude the exact supplier photo requested for removal.
+const CAVERO_REMOVED_IMAGES = new Set([
+  'https://static.wixstatic.com/media/eb5ec1_121e2c103951455bb0b505eba590c0d7~mv2.jpeg'
+]);
+
 families.forEach(f => {
   const clean = CAVERO_CLEAN_IMAGES[f.key];
-  if (!clean) return;
-  f.cleanImage = clean;
-  f.gallery = [clean, ...(f.gallery || []).filter(src => src !== clean)];
+  if (clean) f.cleanImage = clean;
+  const gallery = clean ? [clean, ...(f.gallery || [])] : (f.gallery || []);
+  f.gallery = [...new Set(gallery)].filter(src => !CAVERO_REMOVED_IMAGES.has(src));
 });
