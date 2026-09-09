@@ -116,7 +116,72 @@
       ['Cor do mostrador', 'Prateado / branco na variante apresentada; varia conforme o acabamento'],
       ['Caixa / acabamento', 'Prateado · polido / escovado'],
       ['Bracelete ajustável', 'Sim · por remoção de elos']
+    ],
+    royale: [
+      ['Diâmetro da caixa', '≈ 40 mm'],
+      ['Espessura da caixa', '≈ 10–11 mm'],
+      ['Largura da bracelete', '≈ 20 mm'],
+      ['Tamanho de pulso', '≈ 16–21 cm'],
+      ['Peso', '≈ 120–140 g'],
+      ['Material da caixa', 'Metal · aparência de aço inoxidável'],
+      ['Material da bracelete', 'Metálica'],
+      ['Funções', 'Analógico · complicações por confirmar'],
+      ['Tipo de fecho', 'Dobrável / deployant'],
+      ['Cor do mostrador', 'Azul, branco, preto ou verde, conforme a variante'],
+      ['Caixa / acabamento', 'Prateado, dourado ou preto, conforme a variante'],
+      ['Bracelete ajustável', 'Sim · por remoção de elos']
+    ],
+    ocean: [
+      ['Diâmetro da caixa', 'Masculino ≈ 42 mm · Feminino ≈ 36–38 mm'],
+      ['Espessura da caixa', '≈ 11–12 mm'],
+      ['Largura da bracelete', '≈ 20–22 mm'],
+      ['Tamanho de pulso', '≈ 15,5–21,5 cm'],
+      ['Peso', '≈ 70–120 g · depende da versão'],
+      ['Material da caixa', 'Metal'],
+      ['Material da bracelete', 'Desportiva · aparência de silicone / PU em algumas versões'],
+      ['Funções', 'Analógico · funções dependem da versão'],
+      ['Tipo de fecho', 'Fivela nas versões com bracelete flexível'],
+      ['Cor do mostrador', 'Preto, azul, verde, vermelho e outras cores, conforme a variante'],
+      ['Caixa / acabamento', 'Depende da variante'],
+      ['Bracelete ajustável', 'Sim · conforme a versão']
+    ],
+    prestige: [
+      ['Diâmetro da caixa', '≈ 40 mm'],
+      ['Espessura da caixa', '≈ 10–11 mm'],
+      ['Largura da bracelete', '≈ 20 mm'],
+      ['Tamanho de pulso', '≈ 16–21 cm'],
+      ['Peso', '≈ 120–140 g'],
+      ['Material da caixa', 'Metal · aparência de aço inoxidável'],
+      ['Material da bracelete', 'Metálica'],
+      ['Funções', 'Analógico · função de data por confirmar'],
+      ['Tipo de fecho', 'Dobrável / deployant'],
+      ['Cor do mostrador', 'Várias combinações, conforme a variante'],
+      ['Caixa / acabamento', 'Prateado, dourado ou bicolor, conforme a variante'],
+      ['Bracelete ajustável', 'Sim · por remoção de elos']
+    ],
+    apex: [
+      ['Diâmetro da caixa', '≈ 42 mm'],
+      ['Espessura da caixa', '≈ 11–12 mm'],
+      ['Largura da bracelete', '≈ 22 mm'],
+      ['Tamanho de pulso', '≈ 16–21 cm'],
+      ['Peso', '≈ 140–160 g'],
+      ['Material da caixa', 'Metal · aparência de aço inoxidável'],
+      ['Material da bracelete', 'Metálica'],
+      ['Funções', 'Analógico · funções por confirmar'],
+      ['Tipo de fecho', 'Dobrável / deployant'],
+      ['Cor do mostrador', 'Depende da variante'],
+      ['Caixa / acabamento', 'Metálico · design octogonal'],
+      ['Bracelete ajustável', 'Sim · por remoção de elos']
     ]
+  };
+
+  const PRODUCT_SPEC_NOTES = {
+    chronos: 'Medidas, peso e compatibilidade de pulso são valores aproximados. A resistência à água indicada para este modelo é de 3 ATM.',
+    velocity: 'Medidas, peso e compatibilidade de pulso são valores aproximados. A resistência à água indicada para este modelo é de 3 ATM.',
+    royale: 'Medidas, peso e compatibilidade de pulso são valores aproximados. Vidro, movimento e resistência à água não são apresentados enquanto não estiverem confirmados.',
+    ocean: 'Medidas, peso e compatibilidade de pulso são valores aproximados e podem variar entre versões. Vidro, movimento e resistência à água não são apresentados enquanto não estiverem confirmados.',
+    prestige: 'Medidas, peso e compatibilidade de pulso são valores aproximados. Vidro, movimento e resistência à água não são apresentados enquanto não estiverem confirmados.',
+    apex: 'Medidas, peso e compatibilidade de pulso são valores aproximados. Vidro, movimento e resistência à água não são apresentados enquanto não estiverem confirmados.'
   };
 
   function editorialFor(f){ return PRODUCT_EDITORIAL[f.key] || PRODUCT_EDITORIAL.royale; }
@@ -157,6 +222,7 @@
   function technicalSpecsMarkup(f){
     const specs = PRODUCT_SPECS[f.key];
     if (!specs) return '';
+    const note = PRODUCT_SPEC_NOTES[f.key] || 'Medidas e peso são valores aproximados.';
     return `<section class="technical-specs-section" aria-labelledby="technicalSpecsTitle-${f.key}">
       <div class="technical-specs-heading">
         <div>
@@ -168,7 +234,7 @@
       <div class="technical-specs-grid">
         ${specs.map(([label,value])=>`<div class="technical-spec-row"><span>${label}</span><strong>${value}</strong></div>`).join('')}
       </div>
-      <p class="technical-specs-note"><strong>Nota:</strong> medidas, peso e compatibilidade de pulso são valores aproximados. A resistência à água indicada para este modelo é de 3 ATM.</p>
+      <p class="technical-specs-note"><strong>Nota:</strong> ${note}</p>
     </section>`;
   }
 
