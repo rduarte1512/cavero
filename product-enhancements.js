@@ -86,6 +86,39 @@
     }
   };
 
+  const PRODUCT_SPECS = {
+    chronos: [
+      ['Diâmetro da caixa', '≈ 40 mm'],
+      ['Espessura da caixa', '≈ 12–13 mm'],
+      ['Largura da bracelete', '≈ 20 mm'],
+      ['Tamanho de pulso', '≈ 16–21 cm'],
+      ['Peso', '≈ 140–160 g'],
+      ['Material da caixa', 'Aspeto de aço inoxidável'],
+      ['Material da bracelete', 'Metálica, com aspeto de aço inoxidável'],
+      ['Resistência à água', '3 ATM'],
+      ['Funções', '3 submostradores · visual de cronógrafo'],
+      ['Tipo de fecho', 'Dobrável / deployant'],
+      ['Cor do mostrador', 'Azul-gelo / azul-claro, conforme o acabamento'],
+      ['Caixa / acabamento', 'Prateado · polido / escovado'],
+      ['Bracelete ajustável', 'Sim · por remoção de elos']
+    ],
+    velocity: [
+      ['Diâmetro da caixa', '≈ 42 mm'],
+      ['Espessura da caixa', '≈ 12–13 mm'],
+      ['Largura da bracelete', '≈ 22 mm'],
+      ['Tamanho de pulso', '≈ 16–21 cm'],
+      ['Peso', '≈ 130–150 g'],
+      ['Material da caixa', 'Aspeto de aço inoxidável'],
+      ['Material da bracelete', 'Metálica, com aspeto de aço inoxidável'],
+      ['Resistência à água', '3 ATM'],
+      ['Funções', '3 submostradores + janela de data · visual de cronógrafo'],
+      ['Tipo de fecho', 'Dobrável / deployant'],
+      ['Cor do mostrador', 'Prateado / branco na variante apresentada; varia conforme o acabamento'],
+      ['Caixa / acabamento', 'Prateado · polido / escovado'],
+      ['Bracelete ajustável', 'Sim · por remoção de elos']
+    ]
+  };
+
   function editorialFor(f){ return PRODUCT_EDITORIAL[f.key] || PRODUCT_EDITORIAL.royale; }
 
   function productStoryMarkup(f){
@@ -115,9 +148,27 @@
             <div><dt>Acabamentos</dt><dd>${f.variants.length} opções na coleção</dd></div>
             <div><dt>Envio</dt><dd class="profile-free">Grátis · 0,00 €</dd></div>
           </dl>
-          <p class="profile-note">Ficha de design baseada na apresentação visual do modelo. As características técnicas específicas devem ser confirmadas na documentação do produto.</p>
+          <p class="profile-note">Ficha de design baseada na apresentação visual do modelo. Consulta a ficha técnica abaixo quando disponível.</p>
         </aside>
       </div>
+    </section>`;
+  }
+
+  function technicalSpecsMarkup(f){
+    const specs = PRODUCT_SPECS[f.key];
+    if (!specs) return '';
+    return `<section class="technical-specs-section" aria-labelledby="technicalSpecsTitle-${f.key}">
+      <div class="technical-specs-heading">
+        <div>
+          <div class="eyebrow">FICHA TÉCNICA</div>
+          <h2 id="technicalSpecsTitle-${f.key}">${f.name} em detalhe.</h2>
+        </div>
+        <p>As principais medidas e características para comparares o tamanho, construção e utilização do relógio antes de comprar.</p>
+      </div>
+      <div class="technical-specs-grid">
+        ${specs.map(([label,value])=>`<div class="technical-spec-row"><span>${label}</span><strong>${value}</strong></div>`).join('')}
+      </div>
+      <p class="technical-specs-note"><strong>Nota:</strong> medidas, peso e compatibilidade de pulso são valores aproximados. A resistência à água indicada para este modelo é de 3 ATM.</p>
     </section>`;
   }
 
@@ -154,7 +205,7 @@
     const related = shell.querySelector('.related-section');
     const wrapper = document.createElement('div');
     wrapper.className = 'product-content-enhancements';
-    wrapper.innerHTML = productStoryMarkup(f) + comparisonMarkup(f);
+    wrapper.innerHTML = productStoryMarkup(f) + technicalSpecsMarkup(f) + comparisonMarkup(f);
     if (related) shell.insertBefore(wrapper, related);
     else shell.appendChild(wrapper);
   }
