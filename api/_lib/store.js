@@ -3,8 +3,11 @@ import { readFileSync } from 'node:fs';
 import { runInNewContext } from 'node:vm';
 import { createHash } from 'node:crypto';
 
-const allowedKeys = new Set(['chronos', 'ocean', 'velocity', 'prestige', 'apex']);
-const source = readFileSync(new URL('../../data.js', import.meta.url), 'utf8');
+const allowedKeys = new Set(['chronos', 'ocean', 'velocity', 'prestige', 'apex', 'mariner']);
+const source = [
+  readFileSync(new URL('../../data.js', import.meta.url), 'utf8'),
+  readFileSync(new URL('../../mariner-data.js', import.meta.url), 'utf8')
+].join('\n');
 // Read the version-controlled catalogue in a restricted context. The browser never supplies prices.
 const families = runInNewContext(source + '\n;families;', Object.create(null), { timeout: 1000 });
 const catalog = new Map();
@@ -19,6 +22,15 @@ for (const family of families) {
   });
 }
 
+const MARINER_CAMPAIGN_END = Date.parse('2026-10-10T23:59:59+01:00');
+function currentCatalogProduct(product) {
+  if (!product) return product;
+  if (product.id === 'mariner:0' && Date.now() > MARINER_CAMPAIGN_END) {
+    return { ...product, unitAmount: 10999, compareAt: 10999 };
+  }
+  return product;
+}
+
 export function cents(value) {
   if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) throw new Error('Preço inválido.');
   return Math.round(value * 100);
@@ -27,15 +39,15 @@ export function resolveCart(input) {
   if (!Array.isArray(input) || !input.length || input.length > 20) throw invalid('Carrinho inválido.');
   const merged = new Map();
   for (const row of input) {
-    if (!row || typeof row.id !== 'string' || !/^(chronos|ocean|velocity|prestige|apex):\d+$/.test(row.id)) throw invalid('Produto inválido.');
+    if (!row || typeof row.id !== 'string' || !/^(chronos|ocean|velocity|prestige|apex|mariner):\d+$/.test(row.id)) throw invalid('Produto inválido.');
     if (!Number.isSafeInteger(row.qty) || row.qty < 1 || row.qty > 10) throw invalid('Quantidade inválida.');
-    const product = catalog.get(row.id);
+    const product = currentCatalogProduct(catalog.get(row.id));
     if (!product) throw invalid('O produto selecionado já não está disponível.');
     merged.set(row.id, (merged.get(row.id) || 0) + row.qty);
   }
   const items = [...merged].map(([id, qty]) => {
     if (qty > 10) throw invalid('Quantidade máxima por acabamento: 10.');
-    return { ...catalog.get(id), qty };
+    return { ...currentCatalogProduct(catalog.get(id)), qty };
   });
   if (items.reduce((sum, item) => sum + item.qty, 0) > 20) throw invalid('Máximo de 20 relógios por encomenda.');
   const subtotal = items.reduce((sum, item) => sum + item.unitAmount * item.qty, 0);
