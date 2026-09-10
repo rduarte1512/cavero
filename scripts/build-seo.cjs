@@ -11,13 +11,13 @@ const escape = value => String(value ?? '').replace(/&/g, '&amp;').replace(/</g,
 const json = value => JSON.stringify(value).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
 const url = p => ORIGIN + p;
 const catalogContext = vm.createContext({});
-for (const file of ['data.js', 'remove-royale.js', 'clean-images.js']) vm.runInContext(read(file), catalogContext, { filename: file });
+for (const file of ['data.js', 'mariner-data.js', 'remove-royale.js', 'clean-images.js']) vm.runInContext(read(file), catalogContext, { filename: file });
 const families = vm.runInContext('families', catalogContext);
 const pagesContext = vm.createContext({ window: {}, document: { querySelector: () => null } });
 for (const file of ['site-pages.js', 'about-pages.js']) vm.runInContext(read(file), pagesContext, { filename: file });
 const sitePages = pagesContext.window.CAVERO_SITE_PAGES;
 const sitePaths = pagesContext.window.CAVERO_SITE_PATHS;
-const productPaths = { chronos: '/cavero-chronos-ice', ocean: '/cavero-ocean', velocity: '/cavero-velocity', prestige: '/cavero-prestige', apex: '/cavero-apex' };
+const productPaths = { chronos: '/cavero-chronos-ice', ocean: '/cavero-ocean', velocity: '/cavero-velocity', prestige: '/cavero-prestige', apex: '/cavero-apex', mariner: '/cavero-mariner' };
 const activeFamilies = families.filter(f => productPaths[f.key]);
 const image = f => f.cleanImage || f.variants[f.defaultVariant || 0]?.image || f.gallery[0];
 const description = f => `${f.subtitle}. ${f.desc} Explora os acabamentos disponíveis na CAVERO Watches, com envio gratuito para Portugal.`;
