@@ -52,3 +52,6 @@ function injectMarinerHQ(dir) {
   }
 }
 injectMarinerHQ(distDir);
+
+// Final pass: one canonical public origin and stronger CAVERO brand/entity signals.
+require('./normalize-official-origin.cjs').apply();
