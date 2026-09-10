@@ -148,15 +148,36 @@
     </section>`;
   }
 
+  function positionMarinerPremium(shell){
+    const premium = shell?.querySelector('.mariner-premium');
+    const productPage = shell?.querySelector('.product-page');
+    if (!premium || !productPage) return;
+    if (premium.previousElementSibling !== productPage) productPage.insertAdjacentElement('afterend', premium);
+  }
+
   function enhanceMarinerProduct(){
     if (typeof activeFamily === 'undefined' || activeFamily?.key !== 'mariner') return;
     const shell = document.querySelector('#productView .product-shell');
-    if (!shell || shell.querySelector('.mariner-premium')) return;
-    shell.insertAdjacentHTML('beforeend', premiumProductMarkup());
+    if (!shell) return;
+
+    let premium = shell.querySelector('.mariner-premium');
+    if (!premium) {
+      const holder = document.createElement('div');
+      holder.innerHTML = premiumProductMarkup().trim();
+      premium = holder.firstElementChild;
+      const productPage = shell.querySelector('.product-page');
+      if (productPage) productPage.insertAdjacentElement('afterend', premium);
+      else shell.insertBefore(premium, shell.firstChild);
+    }
+
+    positionMarinerPremium(shell);
+    requestAnimationFrame(()=>positionMarinerPremium(shell));
+    setTimeout(()=>positionMarinerPremium(shell),0);
+
     const heading = shell.querySelector('.detail .eyebrow');
     if (heading) heading.textContent = 'DESTAQUE CAVERO · LANÇAMENTO LIMITADO';
     const accordions = shell.querySelector('.product-accordions');
-    if (accordions) accordions.insertAdjacentHTML('afterbegin','<details><summary>Materiais e características</summary><p>Aço inoxidável, vidro Hardlex, movimento de quartzo, data, elementos luminosos e resistência à água 3ATM. Referência do modelo: 680-WH.</p></details>');
+    if (accordions && !accordions.querySelector('[data-mariner-materials]')) accordions.insertAdjacentHTML('afterbegin','<details data-mariner-materials><summary>Materiais e características</summary><p>Aço inoxidável, vidro Hardlex, movimento de quartzo, data, elementos luminosos e resistência à água 3ATM. Referência do modelo: 680-WH.</p></details>');
     updateCountdowns();
   }
 
