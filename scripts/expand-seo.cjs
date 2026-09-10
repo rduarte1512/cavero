@@ -17,7 +17,8 @@ const copy = {
   ocean: ['Ocean — Relógio de Estilo Desportivo | CAVERO', 'Conhece o CAVERO Ocean: estética desportiva em versões masculinas e femininas. Escolhe a cor, consulta o preço e compra com envio gratuito para Portugal.'],
   velocity: ['Velocity — Relógio Cronógrafo Desportivo | CAVERO', 'Explora o CAVERO Velocity, um relógio de visual desportivo e marcante. Consulta os acabamentos e preços disponíveis. Envio gratuito para Portugal.'],
   prestige: ['Prestige — Relógio Masculino Clássico | CAVERO', 'Descobre o CAVERO Prestige, um relógio masculino de estilo clássico. Compara cores e acabamentos e escolhe o teu. Envio gratuito para Portugal.'],
-  apex: ['Apex — Relógio Masculino Octogonal | CAVERO', 'Conhece o CAVERO Apex e o seu design octogonal. Vê as fotografias, compara acabamentos e escolhe a tua versão. Envio gratuito para Portugal.']
+  apex: ['Apex — Relógio Masculino Octogonal | CAVERO', 'Conhece o CAVERO Apex e o seu design octogonal. Vê as fotografias, compara acabamentos e escolhe a tua versão. Envio gratuito para Portugal.'],
+  mariner: ['Mariner — Relógio Masculino em Aço Inoxidável | CAVERO', 'Descobre o CAVERO Mariner: mostrador branco, aço inoxidável, movimento de quartzo, data e detalhes luminosos. Preço de lançamento por tempo limitado e envio gratuito para Portugal.']
 };
 for(const r of products){
   const g=group(r); [r.title,r.description]=copy[g.productGroupID];
