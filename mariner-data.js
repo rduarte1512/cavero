@@ -1,11 +1,11 @@
 (() => {
   const gallery = [
-    '/assets/mariner/mariner-wrist-formal.webp',
-    '/assets/mariner/mariner-detail.webp',
-    '/assets/mariner/mariner-standing.webp',
-    '/assets/mariner/mariner-water.webp',
-    '/assets/mariner/mariner-lume.webp',
-    '/assets/mariner/mariner-wrist-collection.webp'
+    'https://static.wixstatic.com/media/eb5ec1_ed2b0fb70e6440d4aa411ff86f44d12d~mv2.png',
+    'https://static.wixstatic.com/media/eb5ec1_014d040d137e4bb09e8ca45a4bb102e3~mv2.png',
+    'https://static.wixstatic.com/media/eb5ec1_2401ef65adcc471a919a94d29473a06a~mv2.png',
+    'https://static.wixstatic.com/media/eb5ec1_abee31e64eed47748f26e551c289f0a6~mv2.png',
+    'https://static.wixstatic.com/media/eb5ec1_86ae367a3c01422381bfe7b5321fb657~mv2.png',
+    'https://static.wixstatic.com/media/eb5ec1_7507484fbbe347f49c0f5a8c5ff98456~mv2.png'
   ];
 
   const mariner = {
