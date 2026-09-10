@@ -7,7 +7,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const Module = require('node:module');
 const filename = path.join(__dirname, 'build-seo.cjs');
-const source = fs.readFileSync(filename, 'utf8');
+let source = fs.readFileSync(filename, 'utf8');
 const oldContext = 'const pagesContext = vm.createContext({ window: {}, document: { querySelector: () => null } });';
 const safeContext = `const pagesContext = vm.createContext({
   window: {},
@@ -16,13 +16,18 @@ const safeContext = `const pagesContext = vm.createContext({
     getElementById: id => id === 'sitePageView' ? {} : null
   }
 });`;
-if (!source.includes(oldContext)) {
-  throw new Error('SEO page extraction contract changed; review the generator before building.');
+const oldCatalogLoad = "for (const file of ['data.js', 'remove-royale.js', 'clean-images.js']) vm.runInContext(read(file), catalogContext, { filename: file });";
+const newCatalogLoad = "for (const file of ['data.js', 'mariner-data.js', 'remove-royale.js', 'clean-images.js']) vm.runInContext(read(file), catalogContext, { filename: file });";
+const oldProductPaths = "const productPaths = { chronos: '/cavero-chronos-ice', ocean: '/cavero-ocean', velocity: '/cavero-velocity', prestige: '/cavero-prestige', apex: '/cavero-apex' };";
+const newProductPaths = "const productPaths = { chronos: '/cavero-chronos-ice', ocean: '/cavero-ocean', velocity: '/cavero-velocity', prestige: '/cavero-prestige', apex: '/cavero-apex', mariner: '/cavero-mariner' };";
+if (!source.includes(oldContext) || !source.includes(oldCatalogLoad) || !source.includes(oldProductPaths)) {
+  throw new Error('SEO extraction contract changed; review the generator before building.');
 }
+source = source.replace(oldContext, safeContext).replace(oldCatalogLoad, newCatalogLoad).replace(oldProductPaths, newProductPaths);
 const generator = new Module(filename, module);
 generator.filename = filename;
 generator.paths = Module._nodeModulePaths(path.dirname(filename));
-generator._compile(source.replace(oldContext, safeContext), filename);
+generator._compile(source, filename);
 require('./finalize-seo.cjs');
 require('./expand-seo.cjs');
 require('./refine-home-intro.cjs').apply();
