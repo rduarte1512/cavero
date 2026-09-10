@@ -159,10 +159,10 @@
 
       <article class="review-card mariner-review-card mariner-private-review">
         <div class="mariner-review-photo-grid four" aria-label="4 fotos enviadas por cliente com nome privado">
-          <img class="review-photo" src="assets/reviews/mariner-private-01.jpg" alt="Fecho e bracelete do CAVERO Mariner no pulso" loading="lazy">
-          <img class="review-photo" src="assets/reviews/mariner-private-02.jpg" alt="Fecho do CAVERO Mariner fotografado pelo cliente" loading="lazy">
-          <img class="review-photo" src="assets/reviews/mariner-private-03.jpg" alt="CAVERO Mariner e acessórios recebidos pelo cliente" loading="lazy">
-          <img class="review-photo" src="assets/reviews/mariner-private-04.jpg" alt="CAVERO Mariner no pulso do cliente" loading="lazy">
+          <img class="review-photo" src="assets/reviews/mariner-private-01.png" alt="Fecho e bracelete do CAVERO Mariner no pulso" loading="lazy">
+          <img class="review-photo" src="assets/reviews/mariner-private-02.png" alt="Fecho do CAVERO Mariner fotografado pelo cliente" loading="lazy">
+          <img class="review-photo" src="assets/reviews/mariner-private-03.png" alt="CAVERO Mariner e acessórios recebidos pelo cliente" loading="lazy">
+          <img class="review-photo" src="assets/reviews/mariner-private-04.png" alt="CAVERO Mariner no pulso do cliente" loading="lazy">
         </div>
         <div class="review-photo-label">4 fotos do cliente</div>
         <div class="review-stars" aria-label="5 em 5">★★★★★</div>
