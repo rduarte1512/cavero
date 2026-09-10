@@ -1,4 +1,5 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": true,
@@ -6,6 +7,24 @@
   "functions": {
     "api/*.js": { "includeFiles": "{data.js,mariner-data.js}" }
   },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        { "type": "header", "key": "host", "value": "cavero-three.vercel.app" }
+      ],
+      "destination": "https://caverowatches.vercel.app/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        { "type": "header", "key": "host", "value": "cavero-zetawebs-projects.vercel.app" }
+      ],
+      "destination": "https://caverowatches.vercel.app/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
