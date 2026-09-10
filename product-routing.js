@@ -9,7 +9,8 @@
     ocean: '/cavero-ocean',
     velocity: '/cavero-velocity',
     prestige: '/cavero-prestige',
-    apex: '/cavero-apex'
+    apex: '/cavero-apex',
+    mariner: '/cavero-mariner'
   };
 
   const PATH_TO_KEY = Object.fromEntries(
@@ -17,10 +18,10 @@
   );
 
   const CATALOG_GROUPS = {
-    all: ['chronos','ocean','velocity','prestige','apex'],
+    all: ['chronos','ocean','velocity','prestige','apex','mariner'],
     sport: ['ocean','velocity','apex'],
-    elegant: ['chronos','prestige'],
-    statement: ['chronos','velocity','apex']
+    elegant: ['chronos','prestige','mariner'],
+    statement: ['chronos','velocity','apex','mariner']
   };
 
   const normalizePath = path => {
@@ -60,8 +61,8 @@
           <div class="catalog-hero-copy">
             <div class="catalog-kicker">CATÁLOGO OFICIAL · CAVERO WATCHES</div>
             <h1>Todos os relógios CAVERO.</h1>
-            <p>Explora a coleção completa num só lugar. Cinco modelos, vários acabamentos e estilos para diferentes ocasiões — com envio gratuito em todas as encomendas.</p>
-            <div class="catalog-hero-trust"><span>✓ Envio gratuito</span><span>✓ Entrega estimada 5–13 dias</span><span>✓ 5 modelos CAVERO</span></div>
+            <p>Explora a coleção completa num só lugar. Seis modelos, vários acabamentos e estilos para diferentes ocasiões — com envio gratuito em todas as encomendas.</p>
+            <div class="catalog-hero-trust"><span>✓ Envio gratuito</span><span>✓ Entrega estimada 5–13 dias</span><span>✓ 6 modelos CAVERO</span></div>
           </div>
           <div class="catalog-hero-visual"><img src="https://static.wixstatic.com/media/eb5ec1_ad79dbda21cf4672b8c6211f6757e693~mv2.jpg" alt="Coleção CAVERO Watches"></div>
         </section>
