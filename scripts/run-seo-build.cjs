@@ -47,3 +47,24 @@ require('./add-instagram-section.cjs').apply();
 require('./add-scroll-motion.cjs').apply();
 require('./add-vercel-analytics.cjs').apply();
 require('./add-google-analytics.cjs').apply();
+
+// Ensure the runtime catalogue is rebound to the owner's full-quality Mariner originals
+// before app-b renders product cards, galleries and checkout imagery.
+const distDir = path.join(__dirname, '..', 'dist');
+function injectMarinerHQ(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const target = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      injectMarinerHQ(target);
+      continue;
+    }
+    if (!entry.isFile() || !entry.name.endsWith('.html')) continue;
+    let html = fs.readFileSync(target, 'utf8');
+    if (html.includes('mariner-image-hq.js')) continue;
+    const marker = /(<script\s+src=["']\/?catalog-featured\.js["']><\/script>)/i;
+    if (!marker.test(html)) continue;
+    html = html.replace(marker, '$1\n  <script src="/mariner-image-hq.js"></script>');
+    fs.writeFileSync(target, html);
+  }
+}
+injectMarinerHQ(distDir);
