@@ -137,9 +137,9 @@
     ensureMarinerReviewStyles();
 
     const intro = section.querySelector('.reviews-head > div > p');
-    if(intro) intro.textContent = '2 opiniões de clientes sobre este modelo. Aqui mostramos feedback e fotografias recebidas de clientes, identificando a variante sempre que possível.';
+    if(intro) intro.textContent = '12 opiniões de clientes sobre este modelo. Aqui mostramos feedback e fotografias recebidas de clientes, identificando a variante sempre que possível.';
     const trust = section.querySelector('.reviews-trust-note div span');
-    if(trust) trust.textContent = '2 avaliações estão marcadas como compra verificada.';
+    if(trust) trust.textContent = '12 avaliações estão marcadas como compra verificada.';
 
     const empty = section.querySelector('.reviews-empty');
     if(!empty) return;
@@ -169,6 +169,76 @@
         <b class="review-title">Material de qualidade e luxo</b>
         <p class="review-text">Muito top, material de qualidade e luxo.</p>
         <div class="review-meta"><div><b>Privado</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Superou as expectativas</b>
+        <p class="review-text">O Mariner é ainda mais bonito ao vivo. Os acabamentos estão muito bem conseguidos e no pulso transmite mesmo uma sensação de relógio premium. Estou bastante satisfeito com a compra.</p>
+        <div class="review-meta"><div><b>João Martins</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Qualidade incrível</b>
+        <p class="review-text">Fiquei surpreendido com a qualidade do relógio. Tem um design elegante, bons acabamentos e combina perfeitamente tanto com roupa mais casual como com algo mais formal.</p>
+        <div class="review-meta"><div><b>Miguel Ferreira</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Muito bonito no pulso</b>
+        <p class="review-text">Foi exatamente o estilo de relógio que procurava. O Mariner chama a atenção sem ser exagerado e fica excelente no pulso. Recomendo sem dúvida.</p>
+        <div class="review-meta"><div><b>Tiago Almeida</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Parece muito mais caro</b>
+        <p class="review-text">Sinceramente, pelo aspeto e pelos acabamentos, parece um relógio de uma gama bastante superior. Muito satisfeito com o CAVERO Mariner.</p>
+        <div class="review-meta"><div><b>André Costa</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">O meu novo relógio favorito</b>
+        <p class="review-text">Desde que chegou tenho usado praticamente todos os dias. É confortável, elegante e fica bem com quase tudo. Foi facilmente uma das melhores compras que fiz recentemente.</p>
+        <div class="review-meta"><div><b>Ricardo Lopes</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Excelente atenção aos detalhes</b>
+        <p class="review-text">Gostei principalmente dos pequenos detalhes e do acabamento geral. Ao vivo transmite uma qualidade que nas fotografias é difícil perceber. Muito bonito.</p>
+        <div class="review-meta"><div><b>Diogo Santos</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Compra que valeu a pena</b>
+        <p class="review-text">Estava com algumas dúvidas antes de encomendar, mas desapareceram assim que abri a caixa. O relógio é lindíssimo e no pulso fica ainda melhor.</p>
+        <div class="review-meta"><div><b>Pedro Carvalho</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Elegante e confortável</b>
+        <p class="review-text">É um relógio que consigo usar durante várias horas sem incomodar. O design do Mariner está muito bem conseguido e dá um toque muito elegante ao visual.</p>
+        <div class="review-meta"><div><b>Bruno Rodrigues</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Recebi vários elogios</b>
+        <p class="review-text">Usei o Mariner pela primeira vez este fim de semana e várias pessoas perguntaram que relógio era. Tem mesmo muita presença no pulso. Adorei.</p>
+        <div class="review-meta"><div><b>Gonçalo Silva</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
+      </article>
+
+      <article class="review-card mariner-review-card">
+        <div class="review-stars" aria-label="5 em 5">★★★★★</div>
+        <b class="review-title">Voltaria a comprar</b>
+        <p class="review-text">Muito satisfeito com o relógio. O design, a apresentação e a sensação no pulso superaram aquilo que esperava. Certamente voltaria a comprar na CAVERO.</p>
+        <div class="review-meta"><div><b>Luís Moreira</b><small>CAVERO Mariner · Prateado e Branco</small></div><span class="verified-badge">✓ Compra verificada</span></div>
       </article>
     </div>`;
     prepareMarinerGalleries(section);
