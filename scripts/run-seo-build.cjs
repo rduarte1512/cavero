@@ -29,7 +29,19 @@ generator.filename = filename;
 generator.paths = Module._nodeModulePaths(path.dirname(filename));
 generator._compile(source, filename);
 require('./finalize-seo.cjs');
-require('./expand-seo.cjs');
+
+// Keep the existing SEO expander intact while supplying metadata for the new product family.
+const expandFilename = path.join(__dirname, 'expand-seo.cjs');
+let expandSource = fs.readFileSync(expandFilename, 'utf8');
+const apexCopy = "  apex: ['Apex — Relógio Masculino Octogonal | CAVERO', 'Conhece o CAVERO Apex e o seu design octogonal. Vê as fotografias, compara acabamentos e escolhe a tua versão. Envio gratuito para Portugal.']";
+const marinerCopy = `${apexCopy},\n  mariner: ['Mariner — Relógio Masculino em Aço Inoxidável | CAVERO', 'Descobre o CAVERO Mariner: mostrador branco, aço inoxidável, movimento de quartzo, data e detalhes luminosos. Preço de lançamento por tempo limitado e envio gratuito para Portugal.']`;
+if (!expandSource.includes(apexCopy)) throw new Error('SEO expanded-copy contract changed; review before building.');
+expandSource = expandSource.replace(apexCopy, marinerCopy);
+const expander = new Module(expandFilename, module);
+expander.filename = expandFilename;
+expander.paths = Module._nodeModulePaths(path.dirname(expandFilename));
+expander._compile(expandSource, expandFilename);
+
 require('./refine-home-intro.cjs').apply();
 require('./add-instagram-section.cjs').apply();
 require('./add-scroll-motion.cjs').apply();
