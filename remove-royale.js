@@ -61,7 +61,7 @@ if (royaleCatalogIndex >= 0) families.splice(royaleCatalogIndex, 1);
 
   function updateOriginCopy(){
     const about=document.querySelector('#sobre .about-copy');
-    if(about){
+    if(about && about.dataset.caveroOriginReady!=='true'){
       const leads=about.querySelectorAll('.home-lead');
       if(leads[1]) leads[1].textContent='A CAVERO é uma marca operada a partir de Portugal e os nossos relógios são produzidos na China por uma fábrica parceira especializada, escolhida pela qualidade de acabamento e consistência dos modelos fornecidos. Preferimos explicar a origem com transparência em vez de esconder onde a produção é feita.';
       if(!about.querySelector('.cavero-origin-note')){
@@ -71,23 +71,26 @@ if (royaleCatalogIndex >= 0) families.splice(royaleCatalogIndex, 1);
         const aboutNote=about.querySelector('.about-note');
         if(aboutNote) aboutNote.insertAdjacentElement('afterend',note); else about.appendChild(note);
       }
+      about.dataset.caveroOriginReady='true';
     }
 
     const originPillar=[...document.querySelectorAll('#sobre .about-pillar')].find(el => /origem/i.test(el.textContent||''));
-    if(originPillar){
+    if(originPillar && originPillar.dataset.caveroOriginReady!=='true'){
       const title=originPillar.querySelector('h3');
       const text=originPillar.querySelector('p');
       if(title) title.textContent='Produção chinesa, seleção CAVERO';
       if(text) text.textContent='Os relógios são produzidos na China por uma fábrica parceira especializada. A CAVERO seleciona a coleção e os acabamentos procurando consistência, boa apresentação e uma relação qualidade/preço adequada a cada modelo.';
+      originPillar.dataset.caveroOriginReady='true';
     }
 
     const faq=[...document.querySelectorAll('#faq details')];
     const originFaq=faq.find(el => /onde.*(desenhados|produzidos)|origem/i.test(el.querySelector('summary')?.textContent||''));
-    if(originFaq){
+    if(originFaq && originFaq.dataset.caveroOriginReady!=='true'){
       const summary=originFaq.querySelector('summary');
       const p=originFaq.querySelector('p');
       if(summary) summary.textContent='Onde são produzidos os relógios CAVERO?';
       if(p) p.innerHTML='Os relógios CAVERO são <strong>produzidos na China por uma fábrica parceira especializada</strong>, selecionada pela qualidade de acabamento e consistência dos modelos fornecidos. A marca é operada a partir de Portugal e comunica a origem de forma transparente: a qualidade depende da fábrica, dos materiais, da montagem e do controlo aplicado ao produto — não apenas do país de produção.';
+      originFaq.dataset.caveroOriginReady='true';
     }
   }
 
@@ -95,7 +98,10 @@ if (royaleCatalogIndex >= 0) families.splice(royaleCatalogIndex, 1);
     const proofItems=[...document.querySelectorAll('#caveroProofBar .cavero-proof-item')];
     if(proofItems.length){
       const item=proofItems[proofItems.length-1];
-      item.innerHTML=`<b>Apoio direto CAVERO</b><span><a class="cavero-support-link" href="${mailto}">${SUPPORT_EMAIL}</a></span>`;
+      if(item.dataset.caveroSupportReady!=='true'){
+        item.innerHTML=`<b>Apoio direto CAVERO</b><span><a class="cavero-support-link" href="${mailto}">${SUPPORT_EMAIL}</a></span>`;
+        item.dataset.caveroSupportReady='true';
+      }
     }
 
     const faqList=document.querySelector('#faq .faq-list');
