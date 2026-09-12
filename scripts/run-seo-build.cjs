@@ -8,6 +8,20 @@ const path = require('node:path');
 const Module = require('node:module');
 const filename = path.join(__dirname, 'build-seo.cjs');
 let source = fs.readFileSync(filename, 'utf8');
+
+// remove-royale.js now also contains browser-only trust/contact enhancements.
+// During SEO extraction we only need its catalogue mutation, not its DOM code.
+const catalogLoop = "for (const file of ['data.js', 'mariner-data.js', 'remove-royale.js', 'clean-images.js']) vm.runInContext(read(file), catalogContext, { filename: file });";
+const safeCatalogLoop = `for (const file of ['data.js', 'mariner-data.js', 'remove-royale.js', 'clean-images.js']) {
+  const raw = read(file);
+  const safeSource = file === 'remove-royale.js' ? raw.split('\\n\\n(() => {')[0] : raw;
+  vm.runInContext(safeSource, catalogContext, { filename: file });
+}`;
+if (!source.includes(catalogLoop)) {
+  throw new Error('SEO catalogue extraction contract changed; review the generator before building.');
+}
+source = source.replace(catalogLoop, safeCatalogLoop);
+
 const oldContext = 'const pagesContext = vm.createContext({ window: {}, document: { querySelector: () => null } });';
 const safeContext = `const pagesContext = vm.createContext({
   window: {},
@@ -27,7 +41,6 @@ generator._compile(source, filename);
 require('./finalize-seo.cjs');
 require('./expand-seo.cjs');
 require('./refine-home-intro.cjs').apply();
-require('./add-instagram-section.cjs').apply();
 require('./add-scroll-motion.cjs').apply();
 require('./add-vercel-analytics.cjs').apply();
 require('./add-google-analytics.cjs').apply();
