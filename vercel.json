@@ -7,6 +7,12 @@
   "functions": {
     "api/*.js": { "includeFiles": "{data.js,mariner-data.js}" }
   },
+  "crons": [
+    {
+      "path": "/api/daily-tracking-emails",
+      "schedule": "15 8 * * *"
+    }
+  ],
   "redirects": [
     {
       "source": "/:path*",
