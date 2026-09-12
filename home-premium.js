@@ -8,9 +8,15 @@
 
   const heroKeys = ['velocity','apex','chronos'];
   const heroCopy = {
-    velocity: { kicker:'SPORT CHRONO · CAVERO', line:'Cronógrafo moderno, presença forte e um visual pensado para todos os dias.' },
-    apex: { kicker:'DESIGN OCTOGONAL · CAVERO', line:'Geometria marcante, mostrador de presença e um perfil contemporâneo.' },
-    chronos: { kicker:'CRONÓGRAFO DE PRESENÇA · CAVERO', line:'Um dos modelos mais expressivos da coleção, com acabamentos que elevam qualquer look.' }
+    velocity: { kicker:'SPORT CHRONO · CAVERO', line:'≈42 mm, bracelete metálica ajustável, 3 ATM e vários acabamentos para um perfil sport chrono.' },
+    apex: { kicker:'DESIGN OCTOGONAL · CAVERO', line:'Caixa octogonal ≈42 mm, bracelete metálica ajustável e três acabamentos para uma escolha direta.' },
+    chronos: { kicker:'CRONÓGRAFO · CAVERO', line:'≈40 mm, bracelete metálica ajustável, 3 ATM e a maior variedade de acabamentos da coleção.' }
+  };
+
+  const heroFacts = {
+    velocity: ['≈ 42 mm','3 ATM','Bracelete ajustável'],
+    apex: ['≈ 42 mm','3 acabamentos','Bracelete ajustável'],
+    chronos: ['≈ 40 mm','3 ATM','Vários acabamentos']
   };
 
   const storeReviews = [
@@ -59,6 +65,90 @@
   let heroIndex = 0;
   let heroTimer = null;
 
+  function ensureConversionStyles(){
+    if(document.getElementById('cavero-conversion-message-styles')) return;
+    const style=document.createElement('style');
+    style.id='cavero-conversion-message-styles';
+    style.textContent=`
+      .premium-hero-facts{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+      .premium-hero-fact{display:inline-flex;align-items:center;min-height:30px;padding:6px 10px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(0,0,0,.22);backdrop-filter:blur(8px);font-size:11px;font-weight:700;letter-spacing:.05em;color:#fff}
+      .cavero-proof-bar{padding:18px 20px;border-bottom:1px solid rgba(17,17,15,.09);background:#f7f6f1}
+      .cavero-proof-bar-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+      .cavero-proof-item{padding:13px 14px;border:1px solid rgba(17,17,15,.1);background:#fff;border-radius:14px}
+      .cavero-proof-item b{display:block;margin-bottom:3px;font-size:13px;color:#11110f}
+      .cavero-proof-item span{display:block;font-size:12px;line-height:1.45;color:#66645d}
+      #sobre .about-pillars{align-content:start}
+      #sobre .about-pillar p{line-height:1.6}
+      @media(max-width:820px){.cavero-proof-bar-inner{grid-template-columns:repeat(2,minmax(0,1fr))}.premium-hero-facts{gap:6px}.premium-hero-fact{font-size:10px;padding:5px 8px}}
+      @media(max-width:520px){.cavero-proof-bar{padding:14px 12px}.cavero-proof-bar-inner{grid-template-columns:1fr 1fr;gap:7px}.cavero-proof-item{padding:11px}.cavero-proof-item b{font-size:12px}.cavero-proof-item span{font-size:11px}}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function addProofBar(){
+    const hero=document.getElementById('premiumHero');
+    if(!hero || document.getElementById('caveroProofBar')) return;
+    const section=document.createElement('section');
+    section.id='caveroProofBar';
+    section.className='cavero-proof-bar';
+    section.setAttribute('aria-label','Vantagens CAVERO');
+    section.innerHTML=`<div class="cavero-proof-bar-inner">
+      <div class="cavero-proof-item"><b>3 anos de garantia legal</b><span>Proteção de conformidade para consumidores em Portugal.</span></div>
+      <div class="cavero-proof-item"><b>14 dias para decidir</b><span>Direito de livre resolução nas compras online, nos termos legais.</span></div>
+      <div class="cavero-proof-item"><b>Envio 0 €</b><span>Entrega estimada em 5–13 dias nas encomendas abrangidas.</span></div>
+      <div class="cavero-proof-item"><b>Especificações claras</b><span>Mostramos o que está confirmado e assinalamos o que ainda não está.</span></div>
+    </div>`;
+    hero.insertAdjacentElement('afterend',section);
+  }
+
+  function enhanceConversionMessage(){
+    const top=document.querySelector('.top');
+    if(top) top.textContent='ENVIO GRATUITO · ENTREGA ESTIMADA 5–13 DIAS · 3 ANOS DE GARANTIA LEGAL · CAVERO WATCHES';
+
+    const meta=document.querySelector('meta[name="description"]');
+    if(meta) meta.setAttribute('content','CAVERO Watches — coleção curta de relógios com especificações por modelo, variantes claras, envio gratuito e proteção legal do consumidor em Portugal.');
+
+    const about=document.querySelector('#sobre .about-copy');
+    const pillars=document.querySelector('#sobre .about-pillars');
+    if(about){
+      const kicker=about.querySelector('.home-kicker');
+      const title=about.querySelector('.home-title');
+      const leads=about.querySelectorAll('.home-lead');
+      const note=about.querySelector('.about-note');
+      const stats=about.querySelector('.about-stats');
+      if(kicker) kicker.textContent='PORQUE CAVERO';
+      if(title) title.textContent='Menos catálogo. Mais informação para escolher o relógio certo.';
+      if(leads[0]) leads[0].textContent='A CAVERO não tenta ser um marketplace com centenas de referências. Trabalhamos uma coleção curta, organizada por estilo, com variantes, medidas e informação técnica por modelo para que saibas o que estás a escolher antes de pagar.';
+      if(leads[1]) leads[1].textContent='Quando uma especificação está confirmada, mostramos. Quando não está, não a transformamos numa promessa de marketing. A CAVERO opera em Portugal e a origem de fabrico de cada modelo só é apresentada quando estiver devidamente confirmada.';
+      if(note) note.innerHTML='<strong>O que estás a pagar:</strong> o modelo e acabamento escolhidos, uma seleção CAVERO mais simples de comparar, informação de produto organizada, envio normal gratuito e apoio através da loja oficial — sem acrescentar portes no fim da compra.';
+      if(stats) stats.innerHTML='<div class="about-stat"><b>3 anos</b><span>garantia legal de conformidade</span></div><div class="about-stat"><b>14 dias</b><span>livre resolução online</span></div><div class="about-stat"><b>0 €</b><span>de envio normal</span></div>';
+    }
+
+    if(pillars){
+      pillars.innerHTML=`
+        <article class="about-pillar"><span>01 · ESPECIFICAÇÕES</span><h3>Qualidade explicada, não sugerida</h3><p>Cada página reúne medidas, tipo de bracelete, fecho, acabamento e resistência à água quando confirmada. Chronos e Velocity, por exemplo, apresentam 3 ATM; nos restantes modelos não inventamos uma classificação.</p></article>
+        <article class="about-pillar"><span>02 · MATERIAIS</span><h3>Sem transformar aparência em composição</h3><p>Quando um modelo é metálico ou tem aparência de aço, dizemos exatamente isso. Só apresentamos “aço inoxidável”, vidro específico ou outro material como facto quando essa composição estiver confirmada.</p></article>
+        <article class="about-pillar"><span>03 · PREÇO</span><h3>O valor muda com o modelo e a variante</h3><p>O preço visível acompanha o acabamento selecionado. Antes de adicionares ao saco vês a variante, a imagem, a referência e o preço aplicável, com envio normal a 0 €.</p></article>
+        <article class="about-pillar"><span>04 · PROTEÇÃO</span><h3>3 anos de garantia legal</h3><p>Nas compras de consumo em Portugal aplicam-se os direitos legais de conformidade dos bens. Nas compras à distância existe ainda o direito de livre resolução de 14 dias, salvo as exceções previstas na lei.</p></article>
+        <article class="about-pillar"><span>05 · ORIGEM</span><h3>Sem uma história de fabrico inventada</h3><p>A CAVERO é apresentada e operada a partir de Portugal. Não usamos “Made in Portugal” nem atribuímos uma origem de produção a um relógio sem confirmação documental.</p></article>
+        <article class="about-pillar"><span>06 · PARA QUEM</span><h3>Um modelo para cada linguagem de estilo</h3><p>Velocity e Chronos privilegiam uma estética cronográfica; Apex aposta no desenho octogonal; Prestige e Royale são mais clássicos; Ocean segue uma leitura casual e desportiva.</p></article>`;
+    }
+
+    const faq=document.querySelector('#faq .faq-list');
+    if(faq){
+      faq.innerHTML=`
+        <details open><summary>O que torna a CAVERO diferente de um marketplace?</summary><p>A CAVERO trabalha uma coleção curta e organizada por identidade de produto, em vez de apresentar centenas de referências sem contexto. Cada modelo tem variantes, fotografias, preço, medidas e informação técnica reunidos na própria página para tornar a comparação e a decisão mais simples.</p></details>
+        <details><summary>Que qualidade e materiais têm os relógios?</summary><p>Depende do modelo. As páginas de produto indicam as medidas, bracelete, fecho, acabamento e resistência à água quando existe confirmação. Chronos e Velocity têm <strong>3 ATM</strong> indicado; noutros modelos, dados como movimento, vidro ou resistência à água não são apresentados como factos enquanto não estiverem confirmados.</p></details>
+        <details><summary>Onde são desenhados ou produzidos?</summary><p>A CAVERO é uma marca e loja operada a partir de Portugal. Não apresentamos um relógio como “Made in Portugal” nem atribuímos uma origem de fabrico específica sem confirmação documental. Quando existir origem confirmada para um modelo, essa informação poderá ser indicada diretamente na respetiva página.</p></details>
+        <details><summary>Que garantia tenho?</summary><p>Nas compras de consumo em Portugal aplica-se a <strong>garantia legal de conformidade de 3 anos</strong> para bens móveis. Em compras online existe também, em regra, um <strong>prazo de 14 dias</strong> para exercer o direito de livre resolução, sujeito às condições e exceções legais.</p></details>
+        <details><summary>Porque é que os preços variam entre modelos e acabamentos?</summary><p>O preço depende da família e da variante escolhida. A página atualiza o acabamento, a imagem, a referência e o preço correspondente antes de adicionares ao saco. O envio normal apresentado na loja é gratuito, por isso não acrescentamos portes no fim para as encomendas abrangidas.</p></details>
+        <details><summary>Qual é o CAVERO mais indicado para mim?</summary><p>Se procuras uma estética cronográfica e mais técnica, vê Velocity ou Chronos. Para um desenho moderno e geométrico, Apex. Para uma utilização mais clássica ou profissional, Prestige e Royale. Para um estilo casual e desportivo, Ocean.</p></details>
+        <details><summary>Quanto tempo leva a encomenda?</summary><p>O prazo estimado de entrega é de <strong>5 a 13 dias</strong>. O tempo pode variar ligeiramente de acordo com o destino, processamento, transportadora, fins de semana ou situações excecionais.</p></details>
+        <details><summary>O envio é gratuito?</summary><p>Sim. O envio normal apresentado na loja é <strong>gratuito</strong> nas encomendas abrangidas. O custo de portes é 0,00 €.</p></details>
+        <details><summary>Posso escolher o acabamento do relógio?</summary><p>Sim. Cada página de produto mostra os acabamentos disponíveis. Ao escolheres uma variante, a imagem, a referência e o preço correspondente são atualizados antes de adicionares o relógio ao saco.</p></details>`;
+    }
+  }
+
   function heroVariant(f){
     const index = Number.isFinite(Number(f.defaultVariant)) ? Number(f.defaultVariant) : 0;
     return f.variants[index] || f.variants[0];
@@ -88,6 +178,15 @@
       kicker.textContent=(heroCopy[f.key]||{}).kicker || 'CAVERO WATCHES';
       sub.textContent=(heroCopy[f.key]||{}).line || f.subtitle;
       if(price) price.textContent=`Desde ${moneyLocal(Math.min(...f.variants.map(x=>x.price)))}`;
+      const heroContent=document.querySelector('.premium-hero-content');
+      let facts=document.getElementById('premiumHeroFacts');
+      if(heroContent && !facts){
+        facts=document.createElement('div');
+        facts.id='premiumHeroFacts';
+        facts.className='premium-hero-facts';
+        price?.insertAdjacentElement('afterend',facts);
+      }
+      if(facts) facts.innerHTML=(heroFacts[f.key]||[]).map(item=>`<span class="premium-hero-fact">${item}</span>`).join('');
       img.classList.remove('is-changing');
     },animate?170:0);
     dots.forEach((d,i)=>d.classList.toggle('active',i===heroIndex));
@@ -168,6 +267,9 @@
   }
 
   document.addEventListener('DOMContentLoaded',()=>{
+    ensureConversionStyles();
+    enhanceConversionMessage();
+    addProofBar();
     initHero();
     initStoreReviews();
     initCollectionTabs();
