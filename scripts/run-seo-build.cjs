@@ -11,6 +11,8 @@ let source = fs.readFileSync(filename, 'utf8');
 
 // remove-royale.js now also contains browser-only trust/contact enhancements.
 // During SEO extraction we only need its catalogue mutation, not its DOM code.
+const browserMarker = '\n\n(() => {';
+const sanitizeRemoveRoyale = raw => raw.split(browserMarker)[0];
 const catalogLoop = "for (const file of ['data.js', 'mariner-data.js', 'remove-royale.js', 'clean-images.js']) vm.runInContext(read(file), catalogContext, { filename: file });";
 const safeCatalogLoop = `for (const file of ['data.js', 'mariner-data.js', 'remove-royale.js', 'clean-images.js']) {
   const raw = read(file);
@@ -38,7 +40,25 @@ const generator = new Module(filename, module);
 generator.filename = filename;
 generator.paths = Module._nodeModulePaths(path.dirname(filename));
 generator._compile(source, filename);
-require('./finalize-seo.cjs');
+
+// finalize-seo.cjs independently reads remove-royale.js from disk. Intercept only
+// that read while finalization runs so the browser-only code never reaches its VM.
+const nativeReadFileSync = fs.readFileSync;
+fs.readFileSync = function(file, ...args) {
+  const value = nativeReadFileSync.call(fs, file, ...args);
+  if (path.resolve(String(file)) === path.join(path.resolve(__dirname, '..'), 'remove-royale.js')) {
+    const asText = typeof value === 'string' ? value : value.toString('utf8');
+    const safe = sanitizeRemoveRoyale(asText);
+    return typeof value === 'string' ? safe : Buffer.from(safe, 'utf8');
+  }
+  return value;
+};
+try {
+  require('./finalize-seo.cjs');
+} finally {
+  fs.readFileSync = nativeReadFileSync;
+}
+
 require('./expand-seo.cjs');
 require('./refine-home-intro.cjs').apply();
 require('./add-scroll-motion.cjs').apply();
