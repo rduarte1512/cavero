@@ -8,12 +8,12 @@ const path = require('node:path');
 
 const out = path.join(__dirname, '..', 'dist');
 const OFFICIAL_ORIGIN = 'https://caverowatches.vercel.app';
+const SUPPORT_EMAIL = 'caverowatches@sapo.pt';
 const LEGACY_ORIGINS = [
   'https://cavero-three.vercel.app',
   'https://cavero-zetawebs-projects.vercel.app',
   'https://cavero-git-main-zetawebs-projects.vercel.app'
 ];
-const OFFICIAL_INSTAGRAM = 'https://www.instagram.com/caverowatches/';
 const TEXT_EXTENSIONS = new Set(['.html', '.xml', '.txt', '.js', '.json']);
 
 const safeJson = value => JSON.stringify(value)
@@ -35,7 +35,14 @@ function enhanceSchema(schema) {
       node.alternateName = 'CAVERO';
       node.url = OFFICIAL_ORIGIN + '/';
       node.logo = OFFICIAL_ORIGIN + '/favicon.svg';
-      node.sameAs = [OFFICIAL_INSTAGRAM];
+      node.email = SUPPORT_EMAIL;
+      node.contactPoint = [{
+        '@type': 'ContactPoint',
+        contactType: 'customer support',
+        email: SUPPORT_EMAIL,
+        availableLanguage: ['pt-PT']
+      }];
+      delete node.sameAs;
     }
     if (node['@type'] === 'WebSite' && node.name === 'CAVERO Watches') {
       node.alternateName = 'CAVERO';
